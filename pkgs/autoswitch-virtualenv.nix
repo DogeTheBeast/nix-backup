@@ -1,0 +1,1 @@
+/home/doge/packages/nixpkgs/pkgs/by-name/au/autoswitch-virtualenv/package.nix
