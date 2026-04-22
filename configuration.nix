@@ -204,6 +204,31 @@
 		powerOnBoot = true;
 	};
 
+	# Backup systemd
+	systemd.services.nixos-backup = {
+		description = "Backup NixOS config to GitHub";
+		serviceConfig = {
+			Type = "oneshot";
+			ExecStart = "/home/doge/nixos-config/configuration.nix";
+		};
+	};
+
+	systemd.timers.nixos-backup = {
+		wantedBy = [ "timers.target" ];
+		timerConfig = {
+			OnCalendar = "daily";
+			Persistent = true;
+		};
+	};
+
+	# Immich
+	services.immich = {
+		enable = true;
+		port = 2283;
+		host = "0.0.0.0";
+		openFirewall = true;
+	};
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
