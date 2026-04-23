@@ -209,7 +209,7 @@
 		description = "Backup NixOS config to GitHub";
 		serviceConfig = {
 			Type = "oneshot";
-			ExecStart = "/home/doge/nixos-config/configuration.nix";
+			ExecStart = "/home/doge/nixos-config/nixos-backup.sh";
 		};
 	};
 

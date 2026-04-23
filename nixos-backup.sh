@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/run/current-system/sw/bin/bash
 set -e
 
 REPO_DIR="/home/doge/nixos-config/"
@@ -11,5 +11,5 @@ git add -A
 # Only commit if there are changes
 if ! git diff --cached --quiet; then
     git commit -m "Auto backup: $(date '+%Y-%m-%d %H:%M:%S')"
-    git push origin main
+    git push origin master
 fi
