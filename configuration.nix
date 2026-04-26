@@ -1,5 +1,5 @@
 # Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
+# your system. Help is available in the configuration.nix(5) man page, oncon
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, pkgsUnstable, ... }:
@@ -207,10 +207,20 @@
 	# Backup systemd
 	systemd.services.nixos-backup = {
 		description = "Backup NixOS config to GitHub";
+		script = ''
+			REPO_DIR="/home/doge/nixos-config/"
+			cd "$REPO_DIR"
+			git add -A
+			if ! git diff --cached --quiet; then
+					git commit -m "Auto backup: $(date '+%Y-%m-%d %H:%M:%S')"
+					git push origin master
+			fi
+		'';
 		serviceConfig = {
 			Type = "oneshot";
-			ExecStart = "/home/doge/nixos-config/nixos-backup.sh";
+			User = "doge";
 		};
+		 path = [ pkgs.git pkgs.bash ];
 	};
 
 	systemd.timers.nixos-backup = {
