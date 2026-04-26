@@ -220,7 +220,7 @@
 			Type = "oneshot";
 			User = "doge";
 		};
-		 path = [ pkgs.git pkgs.bash ];
+		 path = [ pkgs.git pkgs.bash pkgs.openssh];
 	};
 
 	systemd.timers.nixos-backup = {
