@@ -237,6 +237,13 @@
 		port = 2283;
 		host = "0.0.0.0";
 		openFirewall = true;
+		mediaLocation = "/mnt/WD/collection/Photos/";
+	};
+
+	# NFS
+	fileSystems."/mnt/WD" = {
+		device = "192.168.100.100:/mnt/WD";
+		fsType = "nfs";
 	};
 
 
