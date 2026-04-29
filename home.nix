@@ -33,6 +33,8 @@
 		pkgs.universal-ctags
 		pkgs.webcord
     pkgsUnstable.feishin
+    pkgs.usbmuxd
+    pkgs.idevicerestore
   ];
 
   # Syncthing
