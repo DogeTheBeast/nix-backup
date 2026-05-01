@@ -33,8 +33,8 @@
 		pkgs.universal-ctags
 		pkgs.webcord
     pkgsUnstable.feishin
-    pkgs.usbmuxd
-    pkgs.idevicerestore
+		pkgs.prismlauncher
+		pkgs.openjdk25
   ];
 
   # Syncthing
