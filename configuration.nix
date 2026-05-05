@@ -246,6 +246,16 @@
 		fsType = "nfs";
 	};
 
+	# Restic
+	services.restic = {
+	  enable = true;
+		backups.photos = {
+			paths = "/mnt/WD/collection/Photos/";
+			initialize = true;
+			passwordFile = "";
+		};
+	};
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
