@@ -1,4 +1,4 @@
-{ lib, config, pkgs, pkgsUnstable, pkgsMine, ...}:
+{ lib, config, pkgs, pkgsUnstable, ...}:
 
 {
   home.username = "doge";
@@ -46,21 +46,21 @@
     settings = {
       devices = {
         "OnePlus" = { id = "7TBB3RR-DJG3A2Y-BLUESA6-EKUMUDK-2T2QA4S-7LC5K55-ADO226S-BZVVNAZ"; };
-	"Alarm" = { id = "ZM6D5ZA-CQH3R65-DAY3LZT-W3IB2JG-FQMVTCM-U5Y7SXO-2ZBKAZT-TNWYQQO"; };
-      };
-      folders = {
-	"KeePassXC" = {
-	  path = "/home/doge/KeePassXC";
-	  id = "vhjau-lvyum";
-	  type = "sendreceive";
-	  devices = [ "OnePlus" ];
-	};
-	"University" = {
-	  path = "/home/doge/University";
-	  id = "huas5-xnrt6";
-	  type = "sendreceive";
-	  devices = [ "Alarm" ];
-	};
+				"Alarm" = { id = "ZM6D5ZA-CQH3R65-DAY3LZT-W3IB2JG-FQMVTCM-U5Y7SXO-2ZBKAZT-TNWYQQO"; };
+						};
+						folders = {
+				"KeePassXC" = {
+					path = "/home/doge/KeePassXC";
+					id = "vhjau-lvyum";
+					type = "sendreceive";
+					devices = [ "OnePlus" ];
+				};
+				"University" = {
+					path = "/home/doge/University";
+					id = "huas5-xnrt6";
+					type = "sendreceive";
+					devices = [ "Alarm" ];
+				};
       };
     };
   };
@@ -122,6 +122,16 @@
     host = "0.0.0.0";
     package = pkgs.ollama-cuda;
   };
+
+	# GPG
+	programs.gpg = {
+	  enable = true;
+	};
+
+	services.gpg-agent = {
+	  enable = true;
+		pinentryPackage = pkgs.pinentry-gtk2;
+	};
 
   xresources.properties = {
     "Xft.dpi" = 70;

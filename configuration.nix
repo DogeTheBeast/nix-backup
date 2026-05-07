@@ -2,12 +2,11 @@
 # your system. Help is available in the configuration.nix(5) man page, oncon
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, pkgsUnstable, ... }:
+{ config, lib, pkgs, pkgsUnstable, sops-nix, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # (import "${home-manager}/nixos")
     ];
 
 
@@ -39,6 +38,7 @@
 
   # TEMP 
   nixpkgs.config.allowUnfree = true;
+	services.pcscd.enable = true;
 
   services.open-webui = {
     enable = true;
@@ -161,6 +161,7 @@
     wget
     kitty
     htop
+		sops
   ];
 
 
@@ -246,14 +247,31 @@
 		fsType = "nfs";
 	};
 
-	# Restic
-	services.restic = {
-	  enable = true;
-		backups.photos = {
-			paths = "/mnt/WD/collection/Photos/";
-			initialize = true;
-			passwordFile = "";
+	# Sops
+	sops = {
+		defaultSopsFile = /home/doge/secrets/restic-password.yaml;
+		gnupg = {
+			home = "/home/doge/.gnupg";
+			sshKeyPaths = [];
 		};
+		secrets = {
+			restic-password = {
+				sopsFile = /home/doge/secrets/restic-password.yaml;
+			};
+
+			restic-aws = {
+				sopsFile = /home/doge/secrets/restic-aws.yaml;
+			};
+		};
+	};
+
+	# Restic
+	services.restic.backups.photos = {
+		paths = [ "/mnt/WD/collection/Photos/" ];
+		repository = "s3:https://s3.amazonaws.com/photos-restic-s3";
+		initialize = true;
+		passwordFile = config.sops.secrets.restic-password.path;
+		environmentFile = config.sops.secrets.restic-aws.path;
 	};
 
 

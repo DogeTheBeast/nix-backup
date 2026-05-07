@@ -177,22 +177,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-mine": {
-      "locked": {
-        "lastModified": 1773813145,
-        "narHash": "sha256-DyfhUdRCWTGQ32ZDCry43j7oDxuNw6m/+kycZxamEi8=",
-        "owner": "dogethebeast",
-        "repo": "nixpkgs",
-        "rev": "8f571d5d3201d86dc5468c7a49f55967f1d42c5d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dogethebeast",
-        "ref": "autoswitch-virtualenv-init",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1769433173,
@@ -238,9 +222,29 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-mine": "nixpkgs-mine",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "sops-nix": "sops-nix",
         "stylix": "stylix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777944972,
+        "narHash": "sha256-VfGRo1qTBKOe3s2gOv8LSoA6Fk19PvBlwQ1ECN0Evn8=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "c591bf665727040c6cc5cb409079acb22dcce33c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "stylix": {
