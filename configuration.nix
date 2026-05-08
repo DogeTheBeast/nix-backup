@@ -250,10 +250,7 @@
 	# Sops
 	sops = {
 		defaultSopsFile = /home/doge/secrets/restic-password.yaml;
-		gnupg = {
-			home = "/home/doge/.gnupg";
-			sshKeyPaths = [];
-		};
+		age.keyFile = "/home/doge/age/secrets.txt";
 		secrets = {
 			restic-password = {
 				sopsFile = /home/doge/secrets/restic-password.yaml;
