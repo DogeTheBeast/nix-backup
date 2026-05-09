@@ -269,6 +269,13 @@
 		initialize = true;
 		passwordFile = config.sops.secrets.restic-password.path;
 		environmentFile = config.sops.secrets.restic-aws.path;
+
+		pruneOpts = [
+			"--keep-last 3"
+		];
+		timerConfig = {
+			OnCalendar = "weekly";
+		};
 	};
 
 
