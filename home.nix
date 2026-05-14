@@ -35,6 +35,7 @@
     pkgsUnstable.feishin
 		pkgs.prismlauncher
 		pkgs.openjdk25
+		pkgs.xdotool
   ];
 
   # Syncthing
