@@ -36,8 +36,8 @@
 		pkgs.prismlauncher
 		pkgs.openjdk25
 		pkgs.xdotool
-
 		pkgs.figma-linux
+		pkgs.opencode
   ];
 
   # Syncthing
