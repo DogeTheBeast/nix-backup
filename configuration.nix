@@ -7,6 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+			/etc/nixos/cachix.nix
     ];
 
 
@@ -198,7 +199,11 @@
   };
 
 	# Direnv
-	programs.direnv.enable = true;
+	programs.direnv = {
+	  enable = true;
+		enableZshIntegration = true;
+		nix-direnv.enable = true;
+	};
 
 	hardware.bluetooth = {
 	  enable = true;
@@ -277,6 +282,15 @@
 			OnCalendar = "weekly";
 		};
 	};
+
+	nix.settings = {
+  substituters = [
+    "https://cache.nixos-cuda.org"
+  ];
+  trusted-public-keys = [
+    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  ];
+};
 
 
   # Some programs need SUID wrappers, can be configured further or are

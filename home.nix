@@ -38,6 +38,7 @@
 		pkgs.xdotool
 		pkgs.figma-linux
 		pkgs.opencode
+		pkgs.cachix
   ];
 
   # Syncthing
