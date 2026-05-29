@@ -41,15 +41,15 @@
   nixpkgs.config.allowUnfree = true;
 	services.pcscd.enable = true;
 
-  services.open-webui = {
-    enable = true;
-    host = "0.0.0.0";
-    environment = {
-      HOME = "/home/doge/";
-      OLLAMA_BASE_URL = "http://localhost:11434";
-      WEBUI_AUTH = "False";
-    };
-  };
+  # services.open-webui = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   environment = {
+  #     HOME = "/home/doge/";
+  #     OLLAMA_BASE_URL = "http://localhost:11434";
+  #     WEBUI_AUTH = "False";
+  #   };
+  # };
 
   services.tailscale = {
     enable = true;
