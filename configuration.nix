@@ -128,7 +128,7 @@
 
   # Enable sound.
   system.activationScripts.disableAutoMute = ''
-    ${pkgs.alsa-utils}/bin/amixer -c 1 sset "Auto-Mute Mode" Disabled 
+    ${pkgs.alsa-utils}/bin/amixer -c 2 sset "Auto-Mute Mode" Disabled 
   '';
 
   # services.pulseaudio.enable = true;
