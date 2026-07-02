@@ -2,20 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, oncon
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, pkgsUnstable, sops-nix, ... }:
+{ config, lib, pkgs, sops-nix, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-			/etc/nixos/cachix.nix
     ];
-
-
-  # Home-manager
-  # home-manager.useUserPackages = true;
-  # home-manager.userGlobalPkgs = true;
-  # home-manager.backupFileExtension = "backup";
-  # home-manager.users.doge = import ./home.nix;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -103,11 +95,15 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-	i3blocks
-	rofi
-	alsa-utils
-	pulseaudio
-	sysstat
+			acpi
+			iw
+			python311
+			kitty
+			i3blocks
+			rofi
+			alsa-utils
+			pulseaudio
+			sysstat
       ];
     };
   };
@@ -148,6 +144,7 @@
     shell = pkgs.zsh;
     home = "/home/doge";
     packages = with pkgs; [
+			git
       tree
     ];
   };
@@ -160,10 +157,11 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    kitty
-    htop
 		sops
   ];
+
+	# Environment Variables
+	environment.variables.EDITOR = "nvim";
 
 
   # Searxng
@@ -190,12 +188,7 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    image = /home/doge/dotfiles/wallpapers/snowflake.png;
-    # fonts = {
-    #   serif = config.stylix.fonts.monospace;
-    #   sansSerif = config.stylix.fonts.monospace;
-    #   emoji = config.stylix.fonts.monospace;
-    # };
+		image = ./theme-files/wallpapers/snowflake.png;
   };
 
 	# Direnv

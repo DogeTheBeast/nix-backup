@@ -16,9 +16,17 @@
 		  url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, sops-nix, nixvim, nur }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
@@ -30,6 +38,7 @@
         ./configuration.nix
 				stylix.nixosModules.stylix
 				home-manager.nixosModules.home-manager
+				nur.modules.nixos.default
 				sops-nix.nixosModules.sops
         {
           home-manager.users.doge = ./home.nix;

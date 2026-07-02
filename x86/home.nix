@@ -1,5 +1,19 @@
-{ lib, config, pkgs, pkgsUnstable, ...}:
+{ lib, config, pkgs, pkgsUnstable, nur, ...}:
 
+let
+  i3blocks-contrib = pkgs.fetchFromGitHub {
+    owner = "vivien";
+    repo = "i3blocks-contrib";
+    rev = "master"; 
+    sha256 = "sha256-iY9y3zLw5rUIHZkA9YLmyTDlgzZtIYAwWgHxaCS1+PI=";
+  };
+  yazi-flexoki-dark = pkgs.fetchFromGitHub {
+    owner = "gosxrgxx";
+    repo = "flexoki-dark.yazi";
+    rev = "main"; 
+    sha256 = "sha256-z8USdFAWqDl+8+aM83Hy0Wjjkdq62LC5PwcVpDMOWWY=";
+  };
+in
 {
   home.username = "doge";
   home.homeDirectory = "/home/doge";
@@ -13,33 +27,35 @@
     pkgs.scrot
     pkgs.xclip
     pkgs.playerctl
-    pkgs.neovim
-    pkgs.yazi
     pkgs.zathura
-    pkgs.rofi
     pkgs.libreoffice-qt
     pkgs.htop
-    pkgs.syncthing
-    pkgs.kdePackages.kdeconnect-kde
-    pkgs.kitty
-    pkgs.keepassxc
-    pkgs.librewolf
-    pkgs.thunderbird
     pkgs.vlc
     pkgs.sshfs
+    pkgs.neovim
+    pkgs.yazi
     pkgs.bat
     pkgs.ripgrep
     pkgs.fd
 		pkgs.universal-ctags
 		pkgs.webcord
     pkgsUnstable.feishin
-		pkgs.prismlauncher
-		pkgs.openjdk25
-		pkgs.xdotool
 		pkgs.figma-linux
+		pkgs.lsof
+		pkgs.feh
+		pkgs.prettierd
+		pkgs.rustfmt
+
+		# dogeOnNix specifics
+    pkgs.kdePackages.kdeconnect-kde
+		pkgs.prismlauncher
 		pkgs.opencode
-		pkgs.cachix
   ];
+
+	# Idea is to have a commons directory, 
+	# commons directory is imported by both configs
+	# system specific stuff stays in system specific directory
+	# git pull every day so that the commons files are synced
 
   # Syncthing
   services.syncthing = {
