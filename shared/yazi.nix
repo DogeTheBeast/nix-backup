@@ -1,5 +1,12 @@
-{ config, pkgs, ... }:
-
+{ lib, config, pkgs, ... }:
+let 
+  yazi-flexoki-dark = pkgs.fetchFromGitHub {
+    owner = "gosxrgxx";
+    repo = "flexoki-dark.yazi";
+    rev = "main"; 
+    sha256 = "sha256-z8USdFAWqDl+8+aM83Hy0Wjjkdq62LC5PwcVpDMOWWY=";
+  };
+in
 {
   programs.yazi = {
     enable = true;

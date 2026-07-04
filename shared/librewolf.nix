@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 {
   programs.librewolf = {
     enable = true;
@@ -52,12 +52,14 @@
       };
       settings = {
         "apz.fling_friction" = 0.9;
+				"toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
       extensions = {
         packages = with pkgs.nur.repos.rycee.firefox-addons; [
-	  keepassxc-browser
-	  darkreader
-	];
+					keepassxc-browser
+					gesturefy
+					darkreader
+				];
       };
       userChrome = ./theme-files/librewolf/userChrome.css;
     };

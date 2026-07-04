@@ -97,7 +97,6 @@
       extraPackages = with pkgs; [
 			acpi
 			iw
-			python311
 			kitty
 			i3blocks
 			rofi
@@ -188,7 +187,7 @@
   stylix = {
     enable = true;
     polarity = "dark";
-		image = ./theme-files/wallpapers/snowflake.png;
+		image = ../shared/theme-files/wallpapers/snowflake.png;
   };
 
 	# Direnv
@@ -275,9 +274,6 @@
 			OnCalendar = "weekly";
 		};
 	};
-
-};
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -7,19 +7,29 @@ let
     rev = "master"; 
     sha256 = "sha256-iY9y3zLw5rUIHZkA9YLmyTDlgzZtIYAwWgHxaCS1+PI=";
   };
-  yazi-flexoki-dark = pkgs.fetchFromGitHub {
-    owner = "gosxrgxx";
-    repo = "flexoki-dark.yazi";
-    rev = "main"; 
-    sha256 = "sha256-z8USdFAWqDl+8+aM83Hy0Wjjkdq62LC5PwcVpDMOWWY=";
-  };
 in
 {
   home.username = "doge";
   home.homeDirectory = "/home/doge";
 
+	imports = [
+		../shared/dunst.nix
+		../shared/git.nix
+		../shared/keepassxc.nix
+		../shared/kitty.nix
+		../shared/librewolf.nix
+		../shared/nixvim.nix
+		../shared/opencode.nix
+		../shared/rofi.nix
+		../shared/thunderbird.nix
+		../shared/xdg.nix
+		../shared/yazi.nix
+		../shared/zoxide.nix
+		../shared/zsh.nix
+	];
+
   home.packages = [
-    pkgs.python313
+    pkgs.python3
     pkgs.gcc
     pkgs.cmake
     pkgs.gnumake
@@ -32,8 +42,6 @@ in
     pkgs.htop
     pkgs.vlc
     pkgs.sshfs
-    pkgs.neovim
-    pkgs.yazi
     pkgs.bat
     pkgs.ripgrep
     pkgs.fd
@@ -51,11 +59,6 @@ in
 		pkgs.prismlauncher
 		pkgs.opencode
   ];
-
-	# Idea is to have a commons directory, 
-	# commons directory is imported by both configs
-	# system specific stuff stays in system specific directory
-	# git pull every day so that the commons files are synced
 
   # Syncthing
   services.syncthing = {
@@ -85,56 +88,12 @@ in
     };
   };
 
-  # Zsh
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion = {
-      enable = true;
-      highlight = "fg=#777777";
-    };
-    syntaxHighlighting.enable = true;
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "eastwood";
-    };
-
-    shellAliases = {
-      update = "sudo nixos-rebuild switch";
-      weather = "curl \'wttr.in/$1\'";
-    };
-
-		plugins = [
-		  {
-				name = "autoswitch-virtualenv";
-				file = "autoswitch-virtualenv.plugin.zsh";
-				src = pkgs.callPackage ./pkgs/autoswitch-virtualenv.nix {};
-			}
-			{
-        name = "zsh-nix-shell";
-        file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
-				src = pkgs.zsh-nix-shell;
-      }
-		];
-
-		initContent = lib.mkOrder 1500 ''
-			nix_prompt() {
-				if [[ -n "$IN_NIX_SHELL" ]]; then
-					echo "($NIX_SHELL_NAME) "
-				fi
-			}
-
-			PS1='%F{green}$(nix_prompt)%f'$PS1
-		'';
-
-    history.size = 10000;
-  };
-
   # Zoxide
   programs.zoxide.enable = true;
   programs.zoxide.enableZshIntegration = true;
+
+	# Kitty
+	programs.kitty.font.size = 12;
 
   # Ollama
   services.ollama = {
@@ -159,5 +118,9 @@ in
   home.stateVersion = "25.11";
 
   programs.home-manager.enable = true;
+  stylix.targets.kitty.enable = false;
+  stylix.targets.i3.enable = false;
+  stylix.targets.yazi.enable = false;
+  stylix.targets.rofi.enable = false;
 }
 

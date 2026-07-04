@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   programs.kitty = {
@@ -8,7 +8,6 @@
     '';
     font = {
       name = "DejaVu Sans Mono";
-      size = 16;
     };
   };
   xdg.configFile."kitty/custom-theme.conf".source = ./theme-files/kitty/current-theme.conf;
