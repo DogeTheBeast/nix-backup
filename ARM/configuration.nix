@@ -127,7 +127,7 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    image = ./theme-files/wallpapers/snowflake.png;
+    image = ../shared/theme-files/wallpapers/snowflake.png;
   };
 
   programs.zsh.enable = true;

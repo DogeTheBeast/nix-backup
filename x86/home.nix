@@ -95,6 +95,9 @@ in
 	# Kitty
 	programs.kitty.font.size = 12;
 
+	# Rofi
+	programs.rofi.font = "JetBrains Mono 8";
+
   # Ollama
   services.ollama = {
     enable = true;

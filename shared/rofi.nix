@@ -21,6 +21,5 @@
     terminal = "kitty";
     plugins = [ pkgs.rofi-calc ];
 		theme = "glue_pro_blue.rasi";
-		font = "JetBrains Mono 8";
   };
 }

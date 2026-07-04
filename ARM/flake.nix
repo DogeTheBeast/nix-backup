@@ -40,7 +40,6 @@
 	  home-manager.users.doge.imports = [
 	    ./home.nix
 	    nixvim.homeModules.nixvim
-	    ./apps/nixvim.nix
 	  ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
