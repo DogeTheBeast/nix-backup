@@ -1,8 +1,7 @@
 { config, customModifier ? "Mod4", ... }:
 
 {
-	
-  xsession.windowManager.i3 = {
+	xsession.windowManager.i3 = {
     enable = true;
     config = rec {
 			modifier = customModifier; 
@@ -71,5 +70,5 @@
       window.titlebar = false;
       terminal = "kitty";
     };
-  };
+	};
 }

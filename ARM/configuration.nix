@@ -86,7 +86,6 @@
     font-awesome
   ];
 
-  services.displayManager.defaultSession = "none+i3";
   # hardware.graphics.enable = true;
 
   # Configure keymap in X11

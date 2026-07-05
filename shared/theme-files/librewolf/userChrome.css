@@ -412,7 +412,7 @@ window,
 }
 
 /* transition to oneline */
-@media (min-width: 2000px) {
+@media (min-width: 1000px) {
   /* move tabs bar over */
   #TabsToolbar {
     margin-left: var(--uc-urlbar-width) !important;
