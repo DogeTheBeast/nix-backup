@@ -31,7 +31,7 @@
 
   # TEMP 
   nixpkgs.config.allowUnfree = true;
-	services.pcscd.enable = true;
+  services.pcscd.enable = true;
 
   # services.open-webui = {
   #   enable = true;
