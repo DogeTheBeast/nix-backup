@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   citruszest = pkgs.vimUtils.buildVimPlugin {
     name = "citruszest";
@@ -45,46 +50,72 @@ in
       shiftwidth = 2;
       clipboard = "unnamedplus";
     };
+    diagnostics = {
+      virtual_text = false;
+      virtual_lines = true;
+      underline = true;
+      severity_sort = true;
+    };
 
     globals.mapleader = ",";
 
+    extraPackages = with pkgs; [
+      prettierd
+      rustfmt
+      nixfmt
+    ];
+
     keymaps = [
-	#      {
-	#        action = "";
-	# key = "";
-	# mode = "n";
-	# options = {
-	#   desc = "";
-	# };
-	#      }
+      #      {
+      #        action = "";
+      # key = "";
+      # mode = "n";
+      # options = {
+      #   desc = "";
+      # };
+      #      }
     ];
 
     plugins = {
       telescope = {
         enable = true;
-	keymaps = {
-	  "ff" = {
-	    action = "find_files";
-	  };
-	  "fg" = {
-	    action = "live_grep";
-	  };
-	};
+        keymaps = {
+          "ff" = {
+            action = "find_files";
+          };
+          "fg" = {
+            action = "live_grep";
+          };
+        };
       };
 
       lualine = {
         enable = true;
-	settings = {
-	  options.theme = "codedark";
-	  sections = {
-	    lualine_a = [ "mode" ];
-	    lualine_b = [ "branch" "diff" "diagnostics" ];
-	    lualine_c = [ { __unkeyed-1 = "filename"; path = 1; } ];
-	    lualine_x = [ { __unkeyed-1 = "encoding"; __unkeyed-2 = "filetype"; } ];
-	    lualine_y = [ "progress" ];
-	    lualine_z = [ "location" ];
-	  };
-	};
+        settings = {
+          options.theme = "codedark";
+          sections = {
+            lualine_a = [ "mode" ];
+            lualine_b = [
+              "branch"
+              "diff"
+              "diagnostics"
+            ];
+            lualine_c = [
+              {
+                __unkeyed-1 = "filename";
+                path = 1;
+              }
+            ];
+            lualine_x = [
+              {
+                __unkeyed-1 = "encoding";
+                __unkeyed-2 = "filetype";
+              }
+            ];
+            lualine_y = [ "progress" ];
+            lualine_z = [ "location" ];
+          };
+        };
       };
 
       comment = {
@@ -93,44 +124,48 @@ in
 
       conform-nvim = {
         enable = true;
-	settings = {
-	  format_on_save = {
-	    lspFallback = true;
-	    timeout = 500;
-	  };
-          formatters_by_ft = {
-	    html = [ "prettierd" ];
-	    css = [ "prettierd" ];
-	    javascript = {
-                __unkeyed-1 = "prettierd";
-                stop_after_first = true;
-              };
-	    javascriptreact = [ "prettierd" ];
-	    rust = [ "rustfmt" ];
+        settings = {
+          format_on_save = {
+            lspFallback = true;
+            timeout = 500;
           };
-	  log_level = "trace";
-	};
+          formatters_by_ft = {
+            html = [ "prettierd" ];
+            css = [ "prettierd" ];
+            javascript = {
+              __unkeyed-1 = "prettierd";
+              stop_after_first = true;
+            };
+            javascriptreact = [ "prettierd" ];
+            rust = [ "rustfmt" ];
+            nix = [ "nixfmt" ];
+          };
+          log_level = "trace";
+        };
       };
 
       blink-cmp = {
         enable = true;
-	settings = {
-	  appearance = {
-    	    nerd_font_variant = "mono";
-	  };
-	  keymap.preset = "super-tab";
-	};
+        settings = {
+          appearance = {
+            nerd_font_variant = "mono";
+          };
+          keymap.preset = "super-tab";
+        };
       };
 
-      lspconfig = {
+      lsp = {
         enable = true;
+        servers = {
+          rust_analyzer.enable = true;
+        };
       };
 
       treesitter = {
-      	enable = true;
-	# highlight.enable = true;
+        enable = true;
+        # highlight.enable = true;
       };
-      
+
     };
 
     extraPlugins = [
@@ -140,20 +175,20 @@ in
     ];
 
     extraConfigLua = ''
-      vim.cmd.colorscheme("citruszest")
+        vim.cmd.colorscheme("citruszest")
 
-      require("opencode").setup({
-        preferred_picker = "snacks",
-        preferred_completion = "blink",
-      })
-      init = function()
-    vim.opt.wrap = false
-    vim.opt.sidescrolloff = 36 -- Set a large value
+        require("opencode").setup({
+          preferred_picker = "snacks",
+          preferred_completion = "blink",
+        })
+        init = function()
+      vim.opt.wrap = false
+      vim.opt.sidescrolloff = 36 -- Set a large value
 
-    vim.g.neominimap = {
-      auto_enable = true,
-    }
-    end
+      vim.g.neominimap = {
+        auto_enable = true,
+      }
+      end
     '';
   };
 }

@@ -55,8 +55,6 @@ in
     pkgs.figma-linux
     pkgs.lsof
     pkgs.feh
-    pkgs.prettierd
-    pkgs.rustfmt
   ];
 
   # Syncthing
