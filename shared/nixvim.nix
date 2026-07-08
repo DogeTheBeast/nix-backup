@@ -50,7 +50,7 @@ in
       shiftwidth = 2;
       clipboard = "unnamedplus";
     };
-    diagnostics = {
+    diagnostic.settings = {
       virtual_text = false;
       virtual_lines = true;
       underline = true;
@@ -157,7 +157,11 @@ in
       lsp = {
         enable = true;
         servers = {
-          rust_analyzer.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
         };
       };
 
