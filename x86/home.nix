@@ -1,10 +1,17 @@
-{ lib, config, pkgs, pkgsUnstable, nur, ...}:
+{
+  lib,
+  config,
+  pkgs,
+  pkgsUnstable,
+  nur,
+  ...
+}:
 
 let
   i3blocks-contrib = pkgs.fetchFromGitHub {
     owner = "vivien";
     repo = "i3blocks-contrib";
-    rev = "master"; 
+    rev = "master";
     sha256 = "sha256-iY9y3zLw5rUIHZkA9YLmyTDlgzZtIYAwWgHxaCS1+PI=";
   };
 in
@@ -12,21 +19,21 @@ in
   home.username = "doge";
   home.homeDirectory = "/home/doge";
 
-	imports = [
-		../shared/dunst.nix
-		../shared/git.nix
-		../shared/keepassxc.nix
-		../shared/kitty.nix
-		../shared/librewolf.nix
-		../shared/nixvim.nix
-		../shared/opencode.nix
-		../shared/rofi.nix
-		../shared/thunderbird.nix
-		../shared/xdg.nix
-		../shared/yazi.nix
-		../shared/zoxide.nix
-		../shared/zsh.nix
-	];
+  imports = [
+    ../shared/dunst.nix
+    ../shared/git.nix
+    ../shared/keepassxc.nix
+    ../shared/kitty.nix
+    ../shared/librewolf.nix
+    ../shared/nixvim.nix
+    ../shared/opencode.nix
+    ../shared/rofi.nix
+    ../shared/thunderbird.nix
+    ../shared/xdg.nix
+    ../shared/yazi.nix
+    ../shared/zoxide.nix
+    ../shared/zsh.nix
+  ];
 
   home.packages = [
     pkgs.python3
@@ -45,19 +52,19 @@ in
     pkgs.bat
     pkgs.ripgrep
     pkgs.fd
-		pkgs.universal-ctags
-		pkgs.webcord
+    pkgs.universal-ctags
+    pkgs.webcord
     pkgsUnstable.feishin
-		pkgs.figma-linux
-		pkgs.lsof
-		pkgs.feh
-		pkgs.prettierd
-		pkgs.rustfmt
+    pkgs.figma-linux
+    pkgs.lsof
+    pkgs.feh
+    pkgs.prettierd
+    pkgs.rustfmt
 
-		# dogeOnNix specifics
+    # dogeOnNix specifics
     pkgs.kdePackages.kdeconnect-kde
-		pkgs.prismlauncher
-		pkgs.opencode
+    pkgs.prismlauncher
+    pkgs.opencode
   ];
 
   # Syncthing
@@ -68,22 +75,26 @@ in
     # dataDir = "/home/doge/Syncthing";
     settings = {
       devices = {
-        "OnePlus" = { id = "7TBB3RR-DJG3A2Y-BLUESA6-EKUMUDK-2T2QA4S-7LC5K55-ADO226S-BZVVNAZ"; };
-				"Alarm" = { id = "ZM6D5ZA-CQH3R65-DAY3LZT-W3IB2JG-FQMVTCM-U5Y7SXO-2ZBKAZT-TNWYQQO"; };
-						};
-						folders = {
-				"KeePassXC" = {
-					path = "/home/doge/KeePassXC";
-					id = "vhjau-lvyum";
-					type = "sendreceive";
-					devices = [ "OnePlus" ];
-				};
-				"University" = {
-					path = "/home/doge/University";
-					id = "huas5-xnrt6";
-					type = "sendreceive";
-					devices = [ "Alarm" ];
-				};
+        "OnePlus" = {
+          id = "7TBB3RR-DJG3A2Y-BLUESA6-EKUMUDK-2T2QA4S-7LC5K55-ADO226S-BZVVNAZ";
+        };
+        "Alarm" = {
+          id = "ZM6D5ZA-CQH3R65-DAY3LZT-W3IB2JG-FQMVTCM-U5Y7SXO-2ZBKAZT-TNWYQQO";
+        };
+      };
+      folders = {
+        "KeePassXC" = {
+          path = "/home/doge/KeePassXC";
+          id = "vhjau-lvyum";
+          type = "sendreceive";
+          devices = [ "OnePlus" ];
+        };
+        "University" = {
+          path = "/home/doge/University";
+          id = "huas5-xnrt6";
+          type = "sendreceive";
+          devices = [ "Alarm" ];
+        };
       };
     };
   };
@@ -92,11 +103,11 @@ in
   programs.zoxide.enable = true;
   programs.zoxide.enableZshIntegration = true;
 
-	# Kitty
-	programs.kitty.font.size = 12;
+  # Kitty
+  programs.kitty.font.size = 12;
 
-	# Rofi
-	programs.rofi.font = "JetBrains Mono 8";
+  # Rofi
+  programs.rofi.font = "JetBrains Mono 8";
 
   # Ollama
   # services.ollama = {
@@ -105,15 +116,15 @@ in
   #   package = pkgs.ollama-cuda;
   # };
 
-	# GPG
-	programs.gpg = {
-	  enable = true;
-	};
+  # GPG
+  programs.gpg = {
+    enable = true;
+  };
 
-	services.gpg-agent = {
-	  enable = true;
-		pinentryPackage = pkgs.pinentry-gtk2;
-	};
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gtk2;
+  };
 
   xresources.properties = {
     "Xft.dpi" = 70;
@@ -125,5 +136,5 @@ in
   stylix.targets.i3.enable = false;
   stylix.targets.yazi.enable = false;
   stylix.targets.rofi.enable = false;
+  stylix.targets.opencode.enable = false;
 }
-
