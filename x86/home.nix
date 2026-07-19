@@ -110,11 +110,11 @@ in
   programs.rofi.font = "JetBrains Mono 8";
 
   # Ollama
-  # services.ollama = {
-  #   enable = true;
-  #   host = "0.0.0.0";
-  #   package = pkgs.ollama-cuda;
-  # };
+  services.ollama = {
+    enable = true;
+    host = "0.0.0.0";
+    package = pkgs.ollama-cuda;
+  };
 
   # GPG
   programs.gpg = {
