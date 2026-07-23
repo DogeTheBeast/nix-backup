@@ -23,31 +23,43 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, apple-silicon-support, nixpkgs-unstable, stylix, nixvim, nur }:
-  let
-    system = "aarch64-linux";
-    pkgs = import nixpkgs { inherit system; };
-    pkgsUnstable = import nixpkgs-unstable { inherit system; };
-  in {
-    nixosConfigurations.dogeOnArm = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./configuration.nix
-	apple-silicon-support.nixosModules.apple-silicon-support
-	stylix.nixosModules.stylix
-	nur.modules.nixos.default
-	home-manager.nixosModules.home-manager {
-	  home-manager.users.doge.imports = [
-	    ./home.nix
-	    nixvim.homeModules.nixvim
-	  ];
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-	  home-manager.extraSpecialArgs = {
-	    inherit pkgsUnstable;
-	  };
-	}
-      ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      apple-silicon-support,
+      nixpkgs-unstable,
+      stylix,
+      nixvim,
+      nur,
+    }:
+    let
+      system = "aarch64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      pkgsUnstable = import nixpkgs-unstable { inherit system; };
+    in
+    {
+      nixosConfigurations.dogeOnArm = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./configuration.nix
+          apple-silicon-support.nixosModules.apple-silicon-support
+          stylix.nixosModules.stylix
+          nur.modules.nixos.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.doge.imports = [
+              ./home.nix
+              nixvim.homeModules.nixvim
+            ];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit pkgsUnstable;
+            };
+          }
+        ];
+      };
     };
-  };
 }

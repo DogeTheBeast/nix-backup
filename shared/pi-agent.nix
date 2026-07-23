@@ -1,12 +1,9 @@
+{ pkgs, nix-pi-agent, ... }:
 {
-  programs.pi-coding-agent = {
+  programs.pi = {
     enable = true;
 
-    package = inputs.pi-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
-
-    mutableDir = true;
-
-    models = {
+    settings = {
       providers = {
         local = {
           provider = "ollama";
@@ -16,7 +13,5 @@
       };
     };
 
-    extensions = [
-    ];
   };
 }
