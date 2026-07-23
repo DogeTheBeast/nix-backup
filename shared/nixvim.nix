@@ -36,6 +36,24 @@ let
       render-markdown-nvim
     ];
   };
+  gutentags = pkgs.vimUtils.buildVimPlugin {
+    name = "gutentags";
+    src = pkgs.fetchFromGitHub {
+      owner = "ludovicchabant";
+      repo = "vim-gutentags";
+      rev = "aa47c5e29c37c52176c44e61c780032dfacef3dd";
+      hash = "sha256-Y+CFG55h0APxuFwHgUE+o3LJNprBWFyuuZCPrKNgzb4=";
+    };
+  };
+  pi = pkgs.vimUtils.buildVimPlugin {
+    name = "pi";
+    src = pkgs.fetchFromGitHub {
+      owner = "pablopunk";
+      repo = "pi.nvim";
+      rev = "9b619b4f9fb96fa4dc1a6a7776a651980cd819a0";
+      hash = "sha256-xtA3Ylu6kB5QF3KJ+4eDDO1PJhcTZVZyS3ei96Hs4bM=";
+    };
+  };
 in
 {
   programs.nixvim = {
@@ -57,23 +75,17 @@ in
       severity_sort = true;
     };
 
-    globals.mapleader = ",";
+    globals = {
+      gutentags_ctags_extra_args = [
+        "--exclude=target"
+      ];
+      mapleader = ",";
+    };
 
     extraPackages = with pkgs; [
       prettierd
       rustfmt
       nixfmt
-    ];
-
-    keymaps = [
-      #      {
-      #        action = "";
-      # key = "";
-      # mode = "n";
-      # options = {
-      #   desc = "";
-      # };
-      #      }
     ];
 
     plugins = {
@@ -85,6 +97,18 @@ in
           };
           "fg" = {
             action = "live_grep";
+          };
+          "fp" = {
+            action = "grep_string";
+          };
+          "fe" = {
+            action = "treesitter";
+          };
+          "fr" = {
+            action = "lsp_references";
+          };
+          "fq" = {
+            action = "builtin";
           };
         };
       };
@@ -162,6 +186,9 @@ in
             installCargo = true;
             installRustc = true;
           };
+          ts_ls = {
+            enable = true;
+          };
         };
       };
 
@@ -176,23 +203,48 @@ in
       citruszest
       neominimap
       opencode-experimental
+      gutentags
+      pi
     ];
 
     extraConfigLua = ''
-        vim.cmd.colorscheme("citruszest")
+              vim.cmd.colorscheme("citruszest")
 
-        require("opencode").setup({
-          preferred_picker = "snacks",
-          preferred_completion = "blink",
-        })
-        init = function()
-      vim.opt.wrap = false
-      vim.opt.sidescrolloff = 36 -- Set a large value
+              require("opencode").setup({
+                preferred_picker = "snacks",
+                preferred_completion = "blink",
+              })
+              init = function()
+      				vim.opt.wrap = false
+      				vim.opt.sidescrolloff = 36 -- Set a large value
 
-      vim.g.neominimap = {
-        auto_enable = true,
-      }
-      end
+      				vim.g.neominimap = {
+      					auto_enable = true,
+      				}
+      				end
+
+      				require("pi").setup({
+      				binary = "~/.local/bin/pi", 
+      				provider = "ollama",
+      				model = "qwen3:8b",
+      				thinking = "off", -- be careful, thinking is time-consuming, it's not a great experience if you want simplicity
+      				system_prompt = "You are a helpful assistant.",
+      				append_system_prompt = "Always respond concisely.",
+      				context = {
+      					max_bytes = 24000,
+      					ask = {
+      						surrounding_lines = 80,
+      					},
+      					selection = {
+      						surrounding_lines = 40,
+      					},
+      					diagnostics = {
+      						enabled = false,
+      					},
+      				},
+      				skills = true,
+      				extensions = true,
+      			})
     '';
   };
 }
