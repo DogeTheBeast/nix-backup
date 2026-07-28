@@ -27,6 +27,7 @@ in
     ../shared/librewolf.nix
     ../shared/nixvim.nix
     ../shared/opencode.nix
+    ../shared/pi.nix
     ../shared/rofi.nix
     ../shared/thunderbird.nix
     ../shared/xdg.nix

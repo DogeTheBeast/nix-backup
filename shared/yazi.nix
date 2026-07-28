@@ -1,9 +1,14 @@
-{ lib, config, pkgs, ... }:
-let 
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
   yazi-flexoki-dark = pkgs.fetchFromGitHub {
     owner = "gosxrgxx";
     repo = "flexoki-dark.yazi";
-    rev = "main"; 
+    rev = "main";
     sha256 = "sha256-z8USdFAWqDl+8+aM83Hy0Wjjkdq62LC5PwcVpDMOWWY=";
   };
 in
@@ -11,7 +16,9 @@ in
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
-    flavors = { flexoki-dark = yazi-flexoki-dark; };
+    flavors = {
+      flexoki-dark = yazi-flexoki-dark;
+    };
     theme.flavor.dark = "flexoki-dark";
 
     plugins = {
@@ -20,8 +27,18 @@ in
 
     keymap = {
       mgr.prepend_keymap = [
-        { run = "plugin smart-enter"; on = [ "l" ]; }
+        {
+          run = "plugin smart-enter";
+          on = [ "l" ];
+        }
       ];
+    };
+
+    settings = {
+      mgr = {
+        show_hidden = true;
+        sort_dir_first = true;
+      };
     };
   };
 }
