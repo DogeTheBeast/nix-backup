@@ -2,12 +2,18 @@
 # your system. Help is available in the configuration.nix(5) man page, oncon
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, sops-nix, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  sops-nix,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -18,7 +24,7 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -29,7 +35,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # TEMP 
+  # TEMP
   nixpkgs.config.allowUnfree = true;
   services.pcscd.enable = true;
 
@@ -45,6 +51,17 @@
 
   services.tailscale = {
     enable = true;
+    serve = {
+      enable = true;
+      services = {
+        immich = {
+          endpoints = {
+            "tcp:443" = "http://localhost:2283";
+          };
+          advertised = true;
+        };
+      };
+    };
   };
 
   services.openssh = {
@@ -87,7 +104,6 @@
     xkb.variant = "";
     dpi = 68;
 
-
     desktopManager = {
       xterm.enable = false;
     };
@@ -95,14 +111,14 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-			acpi
-			iw
-			kitty
-			i3blocks
-			rofi
-			alsa-utils
-			pulseaudio
-			sysstat
+        acpi
+        iw
+        kitty
+        i3blocks
+        rofi
+        alsa-utils
+        pulseaudio
+        sysstat
       ];
     };
   };
@@ -113,7 +129,7 @@
     ${pkgs.xorg.xrandr}/bin/xrandr \
       --output DP-4 --primary \
       --output HDMI-0 --rotate left --right-of DP-4
-    '';
+  '';
 
   # Configure keymap in X11
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -139,11 +155,14 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.doge = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     home = "/home/doge";
     packages = with pkgs; [
-			git
+      git
       tree
     ];
   };
@@ -156,12 +175,11 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-		sops
+    sops
   ];
 
-	# Environment Variables
-	environment.variables.EDITOR = "nvim";
-
+  # Environment Variables
+  environment.variables.EDITOR = "nvim";
 
   # Searxng
   services.searx = {
@@ -173,107 +191,118 @@
       secret_key = "thisisasupersecretkey";
       public_instance = false;
       limiter = false;
+      base_url = "https://dogeonnix.tail7da22f.ts.net";
     };
     limiterSettings.botdetection = {
       ip_limit = {
         filter_link_local = false;
-	link_token = false;
+        link_token = false;
       };
+      ip_lists.pass_ip = [
+        "100.109.48.104"
+      ];
     };
-    settings.search.formats = [ "html" "json" ];
+    settings.search.formats = [
+      "html"
+      "json"
+    ];
   };
 
   # Stylix
   stylix = {
     enable = true;
     polarity = "dark";
-		image = ../shared/theme-files/wallpapers/snowflake.png;
+    image = ../shared/theme-files/wallpapers/snowflake.png;
   };
 
-	# Direnv
-	programs.direnv = {
-	  enable = true;
-		enableZshIntegration = true;
-		nix-direnv.enable = true;
-	};
+  # Direnv
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 
-	hardware.bluetooth = {
-	  enable = true;
-		powerOnBoot = true;
-	};
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
-	# Backup systemd
-	systemd.services.nixos-backup = {
-		description = "Backup NixOS config to GitHub";
-		script = ''
-			REPO_DIR="/home/doge/nixos-config/"
-			cd "$REPO_DIR"
-			git add -A
-			if ! git diff --cached --quiet; then
-					git commit -m "Auto backup: $(date '+%Y-%m-%d %H:%M:%S')"
-					git push origin master
-			fi
-		'';
-		serviceConfig = {
-			Type = "oneshot";
-			User = "doge";
-		};
-		 path = [ pkgs.git pkgs.bash pkgs.openssh];
-	};
+  # Backup systemd
+  systemd.services.nixos-backup = {
+    description = "Backup NixOS config to GitHub";
+    script = ''
+      			REPO_DIR="/home/doge/nixos-config/"
+      			cd "$REPO_DIR"
+      			git add -A
+      			if ! git diff --cached --quiet; then
+      					git commit -m "Auto backup: $(date '+%Y-%m-%d %H:%M:%S')"
+      					git push origin master
+      			fi
+      		'';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "doge";
+    };
+    path = [
+      pkgs.git
+      pkgs.bash
+      pkgs.openssh
+    ];
+  };
 
-	systemd.timers.nixos-backup = {
-		wantedBy = [ "timers.target" ];
-		timerConfig = {
-			OnCalendar = "daily";
-			Persistent = true;
-		};
-	};
+  systemd.timers.nixos-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
 
-	# Immich
-	services.immich = {
-		enable = true;
-		port = 2283;
-		host = "0.0.0.0";
-		openFirewall = true;
-		mediaLocation = "/mnt/WD/collection/Photos/";
-	};
+  # Immich
+  services.immich = {
+    enable = true;
+    port = 2283;
+    host = "0.0.0.0";
+    openFirewall = true;
+    mediaLocation = "/mnt/WD/collection/Photos/";
+  };
 
-	# NFS
-	fileSystems."/mnt/WD" = {
-		device = "192.168.100.100:/mnt/WD";
-		fsType = "nfs";
-	};
+  # NFS
+  fileSystems."/mnt/WD" = {
+    device = "192.168.100.100:/mnt/WD";
+    fsType = "nfs";
+  };
 
-	# Sops
-	sops = {
-		defaultSopsFile = /home/doge/secrets/restic-password.yaml;
-		age.keyFile = "/home/doge/age/secrets.txt";
-		secrets = {
-			restic-password = {
-				sopsFile = /home/doge/secrets/restic-password.yaml;
-			};
+  # Sops
+  sops = {
+    defaultSopsFile = /home/doge/secrets/restic-password.yaml;
+    age.keyFile = "/home/doge/age/secrets.txt";
+    secrets = {
+      restic-password = {
+        sopsFile = /home/doge/secrets/restic-password.yaml;
+      };
 
-			restic-aws = {
-				sopsFile = /home/doge/secrets/restic-aws.yaml;
-			};
-		};
-	};
+      restic-aws = {
+        sopsFile = /home/doge/secrets/restic-aws.yaml;
+      };
+    };
+  };
 
-	# Restic
-	services.restic.backups.photos = {
-		paths = [ "/mnt/WD/collection/Photos/" ];
-		repository = "s3:https://s3.amazonaws.com/photos-restic-s3";
-		initialize = true;
-		passwordFile = config.sops.secrets.restic-password.path;
-		environmentFile = config.sops.secrets.restic-aws.path;
+  # Restic
+  services.restic.backups.photos = {
+    paths = [ "/mnt/WD/collection/Photos/" ];
+    repository = "s3:https://s3.amazonaws.com/photos-restic-s3";
+    initialize = true;
+    passwordFile = config.sops.secrets.restic-password.path;
+    environmentFile = config.sops.secrets.restic-aws.path;
 
-		pruneOpts = [
-			"--keep-last 3"
-		];
-		timerConfig = {
-			OnCalendar = "weekly";
-		};
-	};
+    pruneOpts = [
+      "--keep-last 3"
+    ];
+    timerConfig = {
+      OnCalendar = "weekly";
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -289,7 +318,11 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8080 11434 49154];
+  networking.firewall.allowedTCPPorts = [
+    8080
+    11434
+    49154
+  ];
   networking.firewall.allowedUDPPorts = [ 49154 ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
@@ -319,4 +352,3 @@
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
-
