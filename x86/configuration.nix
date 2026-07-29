@@ -191,7 +191,6 @@
       secret_key = "thisisasupersecretkey";
       public_instance = false;
       limiter = false;
-      base_url = "https://dogeonnix.tail7da22f.ts.net";
     };
     limiterSettings.botdetection = {
       ip_limit = {
