@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
 
   programs.pi.coding-agent = {

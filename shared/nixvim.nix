@@ -67,6 +67,8 @@ in
       softtabstop = 2;
       shiftwidth = 2;
       clipboard = "unnamedplus";
+      ignorecase = true;
+      smartcase = true;
     };
     diagnostic.settings = {
       virtual_text = false;
@@ -195,6 +197,10 @@ in
       treesitter = {
         enable = true;
         # highlight.enable = true;
+      };
+
+      gitsigns = {
+        enable = true;
       };
 
     };

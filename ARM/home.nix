@@ -20,7 +20,7 @@ in
   home.homeDirectory = "/home/doge";
 
   imports = [
-    (import ../shared/i3.nix {
+    (import ../shared/sway.nix {
       customModifier = "Mod4";
       inherit config;
     })
@@ -31,6 +31,7 @@ in
     ../shared/librewolf.nix
     ../shared/nixvim.nix
     ../shared/opencode.nix
+    ../shared/pi.nix
     ../shared/rofi.nix
     ../shared/thunderbird.nix
     ../shared/xdg.nix
@@ -63,6 +64,7 @@ in
     pkgs.figma-linux
     pkgs.lsof
     pkgs.feh
+    pkgs.opensrc
 
     # Arm exclusive
     pkgs.fooyin
@@ -151,13 +153,13 @@ in
   # Overrides
 
   # Kitty
-  programs.kitty.font.size = 16;
+  # programs.kitty.font.size = 16;
 
   # Rofi
   programs.rofi.font = "JetBrains Mono 12";
 
   # I3
-  xsession.windowManager.i3.config = {
+  wayland.windowManager.sway.config = {
     keybindings = lib.mkAfter {
       "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5% && pkill -RTMIN+10 i3blocks";
       "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%- && pkill -RTMIN+10 i3blocks";
@@ -181,6 +183,7 @@ in
   stylix.targets.yazi.enable = false;
   stylix.targets.rofi.enable = false;
   stylix.targets.opencode.enable = false;
+  # stylix.targets.sway.enable = false;
 
   home.stateVersion = "25.11";
 

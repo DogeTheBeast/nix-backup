@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   # Git
@@ -7,9 +12,12 @@
     settings = {
       user = {
         name = "Ratiq Narwal";
-				email = "ratiqnarwal@gmail.com";
+        email = "ratiqnarwal@gmail.com";
       };
       init.defaultBranch = "main";
     };
+    ignores = [
+      "tags"
+    ];
   };
 }

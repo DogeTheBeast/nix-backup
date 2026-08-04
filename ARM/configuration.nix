@@ -2,21 +2,29 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   hardware.asahi.enable = true;
-  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
+  hardware.asahi.peripheralFirmwareDirectory = ./boot-dir/vendorfw;
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "electron-36.9.5"
   ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   #TailScale
   services.tailscale = {
@@ -28,6 +36,15 @@
     enable = true;
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -54,32 +71,56 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
- 
   boot.kernelModules = [ "hid_apple" ];
 
   boot.extraModprobeConfig = ''
     options hid_apple swap_fn_leftctrl=1
   '';
 
-  # Enable the X11 windowing system.
-  services.xserver = {
+  # X11
+  # services.xserver = {
+  #   enable = true;
+  #   dpi = 140;
+  #   windowManager.i3 = {
+  #     enable = true;
+  #     extraPackages = with pkgs; [
+  # acpi
+  # iw
+  # brightnessctl
+  # python311
+  # alsa-utils
+  # pulseaudio
+  # sysstat
+  # kitty
+  # libinput
+  #     ];
+  #   };
+  # };
+
+  # Sway
+  programs.sway = {
     enable = true;
-    dpi = 140;
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-	acpi
-	iw
-	brightnessctl
-	python311
-        alsa-utils
-        pulseaudio
-        sysstat
-        kitty
-	libinput
-      ];
-    };
+    wrapperFeatures.gtk = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    grim
+    slurp
+    swaylock
+    swayidle
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    acpi
+    iw
+    brightnessctl
+    python3
+    alsa-utils
+    pulseaudio
+    sysstat
+    kitty
+    libinput
+  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -114,7 +155,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.doge = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     home = "/home/doge";
     packages = with pkgs; [
@@ -127,6 +171,7 @@
     enable = true;
     polarity = "dark";
     image = ../shared/theme-files/wallpapers/snowflake.png;
+    base16Scheme = ../shared/theme-files/theme.yaml;
   };
 
   programs.zsh.enable = true;
@@ -137,13 +182,6 @@
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -162,8 +200,6 @@
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
   };
-
-  environment.variables.EDITOR = "nvim";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
