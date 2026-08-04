@@ -58,7 +58,7 @@
         "${modifier}+Shift+d" = "move container to workspace Ranger";
         "${modifier}+Shift+s" = "move container to workspace Music";
         "${modifier}+Shift+m" = "move container to workspace Mail";
-        "${modifier}+Shift+r" = "restart";
+        "${modifier}+Shift+r" = "swaymsg reload";
         "${modifier}+r" = "mode resize";
         "${modifier}+less" =
           "exec scrot ~/temp/%b%d::%H%M%S.png -s -e 'xclip -selection clipboard -t image/png -i $f'";
