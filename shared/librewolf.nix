@@ -87,6 +87,7 @@
           keepassxc-browser
           gesturefy
           darkreader
+          block-website
         ];
       };
       userChrome = ./theme-files/librewolf/userChrome.css;
