@@ -203,6 +203,15 @@ in
         enable = true;
       };
 
+      vimtex = {
+        enable = true;
+        texlivePackage = pkgs.texliveFull;
+        settings = {
+          # compiler_method = "xetex";
+          view_method = "zathura";
+        };
+      };
+
     };
 
     extraPlugins = [

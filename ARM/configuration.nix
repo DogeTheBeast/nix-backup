@@ -109,7 +109,7 @@
     slurp
     swaylock
     swayidle
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     acpi
     iw
@@ -199,6 +199,7 @@
   # Environment Variables
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
+    EDITOR = "nvim";
   };
 
   # Open ports in the firewall.

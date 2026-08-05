@@ -61,7 +61,7 @@
         "${modifier}+Shift+r" = "swaymsg reload";
         "${modifier}+r" = "mode resize";
         "${modifier}+less" =
-          "exec scrot ~/temp/%b%d::%H%M%S.png -s -e 'xclip -selection clipboard -t image/png -i $f'";
+          ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
       };
       modes = {
         resize = {

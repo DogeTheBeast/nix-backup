@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   programs.thunderbird = {
@@ -7,8 +12,8 @@
       isDefault = true;
       settings = {
         "mail.threadpane.listview" = 1;
-	"mailnews.default_sort_order" = 1;
-	"layout.css.devPixelsPerPx" = "0.8";
+        "mailnews.default_sort_order" = 1;
+        "layout.css.devPixelsPerPx" = "1";
       };
     };
   };
