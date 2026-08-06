@@ -20,6 +20,10 @@ in
   home.homeDirectory = "/home/doge";
 
   imports = [
+    (import ../shared/sway.nix {
+      customModifier = "Mod4";
+      inherit config;
+    })
     ../shared/dunst.nix
     ../shared/git.nix
     ../shared/keepassxc.nix
@@ -56,16 +60,12 @@ in
     pkgs.universal-ctags
     pkgs.webcord
     pkgsUnstable.feishin
-    pkgs.figma-linux
     pkgs.lsof
     pkgs.feh
-    pkgs.prettierd
-    pkgs.rustfmt
 
     # dogeOnNix specifics
     pkgs.kdePackages.kdeconnect-kde
     pkgs.prismlauncher
-    pkgs.opencode
   ];
 
   # Syncthing
@@ -100,12 +100,48 @@ in
     };
   };
 
-  # Zoxide
-  programs.zoxide.enable = true;
-  programs.zoxide.enableZshIntegration = true;
+  # i3blocks
+  programs.i3blocks = {
+    enable = true;
+    bars = {
+      bottom = {
+        mediaplayer = {
+          command = "${i3blocks-contrib}/mediaplayer/mediaplayer";
+          interval = 5;
+        };
+        volume = lib.hm.dag.entryAfter [ "mediaplayer" ] {
+          command = "${i3blocks-contrib}/volume/volume";
+          interval = "once";
+          label = "VOL: ";
+          signal = 11;
+        };
+        iface = lib.hm.dag.entryAfter [ "volume" ] {
+          command = "${i3blocks-contrib}/iface/iface";
+          ADDRESS_FAMILY = "inet";
+          color = "#00FF00";
+          interval = 10;
+          display_wifi_name = 1;
+        };
+        cpu = lib.hm.dag.entryAfter [ "iface" ] {
+          command = "${i3blocks-contrib}/cpu_usage/cpu_usage";
+          interval = 10;
+          label = "CPU: ";
+        };
+        memory = lib.hm.dag.entryAfter [ "cpu" ] {
+          command = "${i3blocks-contrib}/memory/memory";
+          label = "MEM: ";
+          interval = 30;
+        };
+        time = lib.hm.dag.entryAfter [ "memory" ] {
+          command = "date '+%Y-%m-%d %H:%M:%S'";
+          interval = 1;
+        };
+      };
+    };
+  };
 
   # Kitty
-  programs.kitty.font.size = 12;
+  # programs.kitty.font.size = 12;
 
   # Rofi
   programs.rofi.font = "JetBrains Mono 8";
@@ -127,9 +163,33 @@ in
     pinentryPackage = pkgs.pinentry-gtk2;
   };
 
-  xresources.properties = {
-    "Xft.dpi" = 70;
+  # Sway
+  wayland.windowManager.sway.config = {
+    output."*".scale = "0.8";
+    output = {
+      HDMI-A-1 = {
+        transform = "270";
+      };
+    };
+    keybindings = lib.mkAfter {
+      "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle && pkill -RTMIN+11 i3blocks";
+      "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5% && pkill -RTMIN+11 i3blocks";
+      "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5% && pkill -RTMIN+11 i3blocks";
+      "XF86AudioPlay" = "exec playerctl play-pause";
+      "XF86AudioNext" = "exec playerctl next";
+      "XF86AudioPrev" = "exec playerctl previous";
+    };
+    bars = [
+      {
+        statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/bottom";
+        position = "bottom";
+      }
+    ];
   };
+
+  # xresources.properties = {
+  #   "Xft.dpi" = 70;
+  # };
   home.stateVersion = "25.11";
 
   programs.home-manager.enable = true;

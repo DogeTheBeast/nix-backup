@@ -39,6 +39,17 @@
   nixpkgs.config.allowUnfree = true;
   services.pcscd.enable = true;
 
+  # Greetd
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
   # services.open-webui = {
   #   enable = true;
   #   host = "0.0.0.0";
@@ -97,39 +108,36 @@
 
   environment.pathsToLink = [ "/libexec" ];
 
-  # Enable the X11 windowing system.
-  services.xserver = {
+  # Sway
+  programs.sway = {
     enable = true;
-    xkb.layout = "us";
-    xkb.variant = "";
-    dpi = 68;
-
-    desktopManager = {
-      xterm.enable = false;
-    };
-
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        acpi
-        iw
-        kitty
-        i3blocks
-        rofi
-        alsa-utils
-        pulseaudio
-        sysstat
-      ];
-    };
+    wrapperFeatures.gtk = true;
   };
 
-  services.displayManager.defaultSession = "none+i3";
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    grim
+    slurp
+    swaylock
+    swayidle
+    vim
+    wget
+    acpi
+    iw
+    brightnessctl
+    python3
+    alsa-utils
+    pulseaudio
+    sysstat
+    kitty
+    libinput
+  ];
 
-  services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output DP-4 --primary \
-      --output HDMI-0 --rotate left --right-of DP-4
-  '';
+  # services.xserver.displayManager.setupCommands = ''
+  #   ${pkgs.xorg.xrandr}/bin/xrandr \
+  #     --output DP-4 --primary \
+  #     --output HDMI-0 --rotate left --right-of DP-4
+  # '';
 
   # Configure keymap in X11
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -170,14 +178,6 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    sops
-  ];
-
   # Environment Variables
   environment.variables.EDITOR = "nvim";
 
@@ -212,6 +212,7 @@
     enable = true;
     polarity = "dark";
     image = ../shared/theme-files/wallpapers/snowflake.png;
+    base16Scheme = ../shared/theme-files/theme.yaml;
   };
 
   # Direnv

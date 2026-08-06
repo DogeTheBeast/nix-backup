@@ -10,7 +10,6 @@
     systemd.enable = true;
     config = rec {
       modifier = customModifier;
-      output."*".scale = "1.3";
       fonts = {
         names = [ "JetBrains Mono NL" ];
       };
