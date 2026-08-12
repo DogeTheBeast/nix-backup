@@ -58,7 +58,7 @@ in
     pkgs.ripgrep
     pkgs.fd
     pkgs.universal-ctags
-    pkgs.webcord
+    pkgsUnstable.webcord
     pkgsUnstable.feishin
     pkgs.lsof
     pkgs.feh
