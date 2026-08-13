@@ -57,7 +57,7 @@
         "${modifier}+Shift+d" = "move container to workspace Ranger";
         "${modifier}+Shift+s" = "move container to workspace Music";
         "${modifier}+Shift+m" = "move container to workspace Mail";
-        "${modifier}+Shift+r" = "swaymsg reload";
+        "${modifier}+Shift+r" = "exec swaymsg reload";
         "${modifier}+r" = "mode resize";
         "${modifier}+less" =
           ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';

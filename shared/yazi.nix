@@ -16,6 +16,7 @@ in
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "yy";
     flavors = {
       flexoki-dark = yazi-flexoki-dark;
     };

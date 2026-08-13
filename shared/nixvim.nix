@@ -69,6 +69,8 @@ in
       clipboard = "unnamedplus";
       ignorecase = true;
       smartcase = true;
+      wrap = false;
+      sidescrolloff = 36;
     };
     diagnostic.settings = {
       virtual_text = false;
@@ -191,6 +193,12 @@ in
           ts_ls = {
             enable = true;
           };
+          texlab = {
+            enable = true;
+          };
+          pylsp = {
+            enable = true;
+          };
         };
       };
 
@@ -230,8 +238,6 @@ in
                 preferred_completion = "blink",
               })
               init = function()
-      				vim.opt.wrap = false
-      				vim.opt.sidescrolloff = 36 -- Set a large value
 
       				vim.g.neominimap = {
       					auto_enable = true,

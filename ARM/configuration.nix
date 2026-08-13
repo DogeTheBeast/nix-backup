@@ -40,10 +40,19 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
         user = "greeter";
       };
     };
+  };
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -139,6 +148,25 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+  };
+
+  xdg.portal = {
+    xdgOpenUsePortal = true;
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+    ];
+    wlr = {
+      enable = true;
+      # settings = { # uninteresting for this problem, for completeness only
+      #   screencast = {
+      #     output_name = "eDP-1";
+      #     max_fps = 30;
+      #     chooser_type = "simple";
+      #     chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+      #   };
+      # };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

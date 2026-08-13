@@ -8,7 +8,13 @@
 
   programs.pi.coding-agent = {
     enable = true;
-    # rules = ''Be concise.'';
+    rules = "You are already in the working directory. You don't need to CD to any other directory";
+    extensions = [
+      "npm:pi-simplify"
+      "npm:pi-plan"
+      "npm:pi-permission-system"
+      "npm:pi-subagents"
+    ];
     # skills = [ ./skills/my-skill ];
     # models = ./models.json;
     # settings.model = "gpt-5";
