@@ -163,24 +163,6 @@ in
   wayland.windowManager.sway.config.output."*".scale = "1.3";
 
   # I3
-  wayland.windowManager.sway.config = {
-    keybindings = lib.mkAfter {
-      "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5% && pkill -RTMIN+10 i3blocks";
-      "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%- && pkill -RTMIN+10 i3blocks";
-      "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle && pkill -RTMIN+11 i3blocks";
-      "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5% && pkill -RTMIN+11 i3blocks";
-      "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5% && pkill -RTMIN+11 i3blocks";
-      "XF86AudioPlay" = "exec playerctl play-pause";
-      "XF86AudioNext" = "exec playerctl next";
-      "XF86AudioPrev" = "exec playerctl previous";
-    };
-    bars = [
-      {
-        statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/top";
-        position = "top";
-      }
-    ];
-  };
 
   stylix.targets.kitty.enable = false;
   stylix.targets.i3.enable = false;

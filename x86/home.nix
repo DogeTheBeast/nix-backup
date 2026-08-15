@@ -20,10 +20,7 @@ in
   home.homeDirectory = "/home/doge";
 
   imports = [
-    (import ../shared/sway.nix {
-      customModifier = "Mod4";
-      inherit config;
-    })
+    ../shared/sway.nix
     ../shared/dunst.nix
     ../shared/git.nix
     ../shared/keepassxc.nix
@@ -164,32 +161,29 @@ in
   };
 
   # Sway
-  wayland.windowManager.sway.config = {
-    output."*".scale = "0.8";
-    output = {
-      HDMI-A-1 = {
-        transform = "270";
-      };
-    };
-    keybindings = lib.mkAfter {
-      "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle && pkill -RTMIN+11 i3blocks";
-      "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5% && pkill -RTMIN+11 i3blocks";
-      "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5% && pkill -RTMIN+11 i3blocks";
-      "XF86AudioPlay" = "exec playerctl play-pause";
-      "XF86AudioNext" = "exec playerctl next";
-      "XF86AudioPrev" = "exec playerctl previous";
-    };
-    bars = [
-      {
-        statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/bottom";
-        position = "bottom";
-      }
-    ];
-  };
-
-  # xresources.properties = {
-  #   "Xft.dpi" = 70;
+  # wayland.windowManager.sway.config = {
+  #   output."*".scale = "0.8";
+  #   output = {
+  #     HDMI-A-1 = {
+  #       transform = "270";
+  #     };
+  #   };
+  #   keybindings = lib.mkAfter {
+  #     "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle && pkill -RTMIN+11 i3blocks";
+  #     "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5% && pkill -RTMIN+11 i3blocks";
+  #     "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5% && pkill -RTMIN+11 i3blocks";
+  #     "XF86AudioPlay" = "exec playerctl play-pause";
+  #     "XF86AudioNext" = "exec playerctl next";
+  #     "XF86AudioPrev" = "exec playerctl previous";
+  #   };
+  #   bars = [
+  #     {
+  #       statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/bottom";
+  #       position = "bottom";
+  #     }
+  #   ];
   # };
+
   home.stateVersion = "25.11";
 
   programs.home-manager.enable = true;
