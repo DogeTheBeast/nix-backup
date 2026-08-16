@@ -23,19 +23,6 @@ let
       hash = "sha256-EcV/mdleyopQsJ/t/Whl6Yf/2ORb9rnhHuc2Ue1E1Bw=";
     };
   };
-  opencode-experimental = pkgs.vimUtils.buildVimPlugin {
-    name = "opencode";
-    src = pkgs.fetchFromGitHub {
-      owner = "sudo-tee";
-      repo = "opencode.nvim";
-      rev = "99f26ffaf28e95a9f94426deaecf81af88ec1e0b";
-      hash = "sha256-8IR/Nn4kKE832ADnHwsO3gd+QBCG8YomMhwFS61hM5I=";
-    };
-    dependencies = with pkgs.vimPlugins; [
-      plenary-nvim
-      render-markdown-nvim
-    ];
-  };
   gutentags = pkgs.vimUtils.buildVimPlugin {
     name = "gutentags";
     src = pkgs.fetchFromGitHub {
@@ -228,7 +215,6 @@ in
     extraPlugins = [
       citruszest
       neominimap
-      opencode-experimental
       gutentags
       pi
     ];
@@ -236,10 +222,6 @@ in
     extraConfigLua = ''
               vim.cmd.colorscheme("citruszest")
 
-              require("opencode").setup({
-                preferred_picker = "snacks",
-                preferred_completion = "blink",
-              })
               init = function()
 
       				vim.g.neominimap = {

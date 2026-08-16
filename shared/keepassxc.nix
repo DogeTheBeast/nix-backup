@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   programs.keepassxc = {
@@ -7,12 +12,12 @@
       Browser.Enabled = true;
       GUI = {
         ShowTrayIcon = true;
-	ApplicationTheme = "dark";
-	CompactMode = true;
-	MinimizeOnClose = true;
+        ApplicationTheme = "dark";
+        CompactMode = true;
+        MinimizeOnClose = true;
       };
       Security = {
-      	LockDatabaseIdle = false;
+        LockDatabaseIdle = false;
         ClearClipboardTimeout = 30;
       };
     };
