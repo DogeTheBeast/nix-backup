@@ -65,6 +65,7 @@ in
     pkgs.lsof
     pkgs.feh
     pkgs.opensrc
+    pkgs.jq
 
     # Arm exclusive
     pkgs.fooyin
@@ -157,6 +158,9 @@ in
 
   # Rofi
   programs.rofi.font = "JetBrains Mono 12";
+
+  # Sway
+  wayland.windowManager.sway.config.output."*".scale = "1.3";
 
   # I3
   wayland.windowManager.sway.config = {

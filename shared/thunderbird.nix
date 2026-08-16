@@ -5,6 +5,13 @@
   ...
 }:
 
+let
+  tanbanVersion = "1.2.0";
+  tanban = pkgs.fetchurl {
+    url = "https://github.com/DogeTheBeast/tanban/releases/download/v${tanbanVersion}/tanban.xpi";
+    hash = "sha256-pDaxuuZNoTQkWDhYEcErm3OIh1geP4myw+r4tzwz8Ws=";
+  };
+in
 {
   programs.thunderbird = {
     enable = true;
@@ -15,6 +22,10 @@
         "mailnews.default_sort_order" = 1;
         "layout.css.devPixelsPerPx" = "1";
       };
+    };
+    policies.ExtensionSettings."DogeTheBeast.tanban@addons.thunderbird.net" = {
+      installation_mode = "force_installed";
+      install_url = "file://${tanban}";
     };
   };
 }

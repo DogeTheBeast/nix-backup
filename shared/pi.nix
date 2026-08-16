@@ -21,4 +21,15 @@
     # environment.PI_CODING_AGENT_DIR.value = "${config.home.homeDirectory}/.pi/agent";
     # environment.OPENAI_API_KEY.file = config.sops.secrets.openai-api-key.path;
   };
+  home.file.".pi/agent/extensions/pi-permission-system/config.json".text = builtins.toJSON {
+    permissions = {
+      path = {
+        "*" = "allow";
+        "*.env" = "ask";
+      };
+      bash = {
+        "*" = "ask";
+      };
+    };
+  };
 }

@@ -199,6 +199,9 @@ in
           pylsp = {
             enable = true;
           };
+          dartls = {
+            enable = true;
+          };
         };
       };
 
