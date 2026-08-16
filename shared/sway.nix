@@ -61,8 +61,6 @@
           "${modifier}+Shift+m" = "move container to workspace Mail";
           "${modifier}+Shift+r" = "exec swaymsg reload";
           "${modifier}+r" = "mode resize";
-          "${modifier}+less" =
-            ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
           "XF86AudioMute" = "exec pactl set-sink-mute 0 toggle && pkill -RTMIN+11 i3blocks";
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume 0 -5% && pkill -RTMIN+11 i3blocks";
           "XF86AudioRaiseVolume" = "exec pactl set-sink-volume 0 +5% && pkill -RTMIN+11 i3blocks";
@@ -93,6 +91,11 @@
           transform = "270";
         };
 
+        keybindings = {
+          "Mod4+grave" =
+            ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
+        };
+
         bars = [
           {
             statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/bottom";
@@ -105,6 +108,8 @@
       (lib.mkIf (pkgs.system == "aarch64-linux") {
         output."*".scale = "1.3";
         keybindings = lib.mkAfter {
+          "Mod4+less" =
+            ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
           "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5% && pkill -RTMIN+10 i3blocks";
           "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%- && pkill -RTMIN+10 i3blocks";
         };

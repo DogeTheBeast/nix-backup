@@ -17,11 +17,18 @@ in
     enable = true;
     profiles.default = {
       isDefault = true;
-      settings = {
-        "mail.threadpane.listview" = 1;
-        "mailnews.default_sort_order" = 1;
-        "layout.css.devPixelsPerPx" = "1";
-      };
+      settings = lib.mkMerge [
+        {
+          "mail.threadpane.listview" = 1;
+          "mailnews.default_sort_order" = 1;
+        }
+        (lib.mkIf (pkgs.system == "x86_64-linux") {
+          "layout.css.devPixelsPerPx" = "0.8";
+        })
+        (lib.mkIf (pkgs.system == "aarch64-linux") {
+          "layout.css.devPixelsPerPx" = "1";
+        })
+      ];
     };
     policies.ExtensionSettings."DogeTheBeast.tanban@addons.thunderbird.net" = {
       installation_mode = "force_installed";
