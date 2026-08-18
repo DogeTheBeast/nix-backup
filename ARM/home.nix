@@ -21,6 +21,7 @@
     ../shared/nixvim.nix
     ../shared/pi.nix
     ../shared/rofi.nix
+    ../shared/obs.nix
     ../shared/stylix.nix
     ../shared/sway.nix
     ../shared/thunderbird.nix

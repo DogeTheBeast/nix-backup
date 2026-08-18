@@ -122,4 +122,51 @@
       })
     ];
   };
+
+  services.swayidle =
+    let
+      lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+      display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
+    in
+    {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 300;
+          command = "${pkgs.dunst}/bin/dunstify 'Locking in 30 seconds'";
+        }
+        {
+          timeout = 330;
+          command = lock;
+        }
+        {
+          timeout = 345;
+          command = display "off";
+          resumeCommand = display "on";
+        }
+        {
+          timeout = 350;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          # adding duplicated entries for the same event may not work
+          command = (display "off") + "; " + lock;
+        }
+        {
+          event = "after-resume";
+          command = display "on";
+        }
+        {
+          event = "lock";
+          command = (display "off") + "; " + lock;
+        }
+        {
+          event = "unlock";
+          command = display "on";
+        }
+      ];
+    };
 }
