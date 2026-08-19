@@ -23,7 +23,6 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pi.url = "github:lukasl-dev/pi.nix";
   };
 
   outputs =
@@ -36,7 +35,6 @@
       sops-nix,
       nixvim,
       nur,
-      pi,
     }:
     let
       system = "x86_64-linux";
@@ -55,7 +53,6 @@
           {
             home-manager.users.doge.imports = [
               nixvim.homeModules.nixvim
-              pi.homeModules.default
               ./home.nix
             ];
             home-manager.useGlobalPkgs = true;

@@ -53,6 +53,9 @@
     pkgsUnstable.feishin
     pkgs.lsof
     pkgs.feh
+    pkgs.pre-commit
+    pkgs.prettier
+    pkgs.nodejs
 
     # dogeOnNix specifics
     pkgs.kdePackages.kdeconnect-kde

@@ -131,6 +131,7 @@
     slurp
     swaylock
     swayidle
+    sway-audio-idle-inhibit
     vim
     wget
     acpi
