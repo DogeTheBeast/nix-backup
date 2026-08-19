@@ -148,24 +148,26 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    alsa.enable = true;
   };
 
   xdg.portal = {
-    xdgOpenUsePortal = true;
     enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
     ];
     wlr = {
       enable = true;
-      # settings = { # uninteresting for this problem, for completeness only
-      #   screencast = {
-      #     output_name = "eDP-1";
-      #     max_fps = 30;
-      #     chooser_type = "simple";
-      #     chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-      #   };
-      # };
+      settings = {
+        # uninteresting for this problem, for completeness only
+        screencast = {
+          output_name = "eDP-1";
+          max_fps = 30;
+          chooser_type = "simple";
+          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+        };
+      };
     };
   };
 
