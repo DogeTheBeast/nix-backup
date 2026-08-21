@@ -189,6 +189,9 @@ in
           dartls = {
             enable = true;
           };
+          kotlin_language_server = {
+            enable = true;
+          };
         };
       };
 
