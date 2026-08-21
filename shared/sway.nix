@@ -89,6 +89,10 @@
 
         output.HDMI-A-1 = {
           transform = "270";
+          position = "2400,0";
+        };
+        output.DP-3 = {
+          position = "0,0";
         };
 
         keybindings = {
