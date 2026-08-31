@@ -56,11 +56,14 @@
     pkgs.pre-commit
     pkgs.prettier
     pkgs.nodejs
+    pkgs.jq
 
     # dogeOnNix specifics
-    pkgs.kdePackages.kdeconnect-kde
+    # pkgs.kdePackages.kdeconnect-kde
     pkgs.prismlauncher
   ];
+
+  services.kdeconnect.enable = true;
 
   # Syncthing
   services.syncthing = {

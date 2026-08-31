@@ -41,6 +41,7 @@ let
       hash = "sha256-xtA3Ylu6kB5QF3KJ+4eDDO1PJhcTZVZyS3ei96Hs4bM=";
     };
   };
+  kotlin-lsp = pkgs.callPackage ../flakes/kotlin-lsp.nix { };
 in
 {
   programs.nixvim = {
@@ -189,8 +190,16 @@ in
           dartls = {
             enable = true;
           };
-          kotlin_language_server = {
+          kotlin_lsp = {
             enable = true;
+            package = kotlin-lsp;
+            cmd = [
+              "${kotlin-lsp}/bin/kotlin-lsp"
+              "--stdio"
+            ];
+            filetypes = [
+              "kotlin"
+            ];
           };
         };
       };

@@ -32,10 +32,10 @@
 
   home.file.".pi/agent/settings.json".text = builtins.toJSON {
     packages = [
-      # "npm:pi-simplify"
       "npm:pi-plan"
       "npm:@gotgenes/pi-permission-system"
       "npm:pi-subagents"
+      "npm:@demigodmode/pi-web-agent"
     ];
 
     defaultProvider = "opencode-go";
