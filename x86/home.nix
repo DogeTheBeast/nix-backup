@@ -19,7 +19,7 @@
     ../shared/kitty.nix
     ../shared/librewolf.nix
     ../shared/nixvim.nix
-    ../shared/ollama.nix
+    # ../shared/ollama.nix
     ../shared/pi.nix
     ../shared/rofi.nix
     ../shared/stylix.nix

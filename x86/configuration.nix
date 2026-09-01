@@ -94,7 +94,8 @@
   services.dbus.enable = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_1;
 
   networking.hostName = "dogeOnNix"; # Define your hostname.
 
