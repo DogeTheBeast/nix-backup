@@ -88,6 +88,7 @@
           gesturefy
           darkreader
           block-website
+          tridactyl
         ];
       };
       userChrome = ./theme-files/librewolf/userChrome.css;

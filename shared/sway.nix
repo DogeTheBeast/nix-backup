@@ -127,6 +127,51 @@
     ];
   };
 
+  programs.swaylock = {
+    enable = true;
+    settings = lib.mkForce {
+      # Background
+      color = "0e1419";
+
+      # Indicator
+      indicator-radius = 100;
+      indicator-thickness = 14;
+
+      # Normal
+      ring-color = "36a3d9";
+      inside-color = "0b1014";
+      line-color = "0e1419";
+      text-color = "e5e1cf";
+
+      # Cleared
+      ring-clear-color = "95e5cb";
+      inside-clear-color = "0b1014";
+      line-clear-color = "0e1419";
+      text-clear-color = "e5e1cf";
+
+      # Caps Lock
+      ring-caps-lock-color = "e6c446";
+      inside-caps-lock-color = "0b1014";
+      line-caps-lock-color = "0e1419";
+      text-caps-lock-color = "e5e1cf";
+
+      # Verifying
+      ring-ver-color = "b8cc52";
+      inside-ver-color = "0b1014";
+      line-ver-color = "0e1419";
+      text-ver-color = "e5e1cf";
+
+      # Wrong password
+      ring-wrong-color = "ff3333";
+      inside-wrong-color = "0b1014";
+      line-wrong-color = "0e1419";
+      text-wrong-color = "e5e1cf";
+
+      # Feedback
+      show-failed-attempts = true;
+    };
+  };
+
   services.swayidle =
     let
       lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
@@ -140,31 +185,18 @@
           command = "${pkgs.dunst}/bin/dunstify 'Locking in 30 seconds'";
         }
         {
-          timeout = 330;
+          timeout = 345;
           command = lock;
         }
         {
-          timeout = 345;
-          command = display "off";
-          resumeCommand = display "on";
+          timeout = 400;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
         }
-        # {
-        #   timeout = 350;
-        #   command = "${pkgs.systemd}/bin/systemctl suspend";
-        # }
       ];
       events = [
         {
           event = "before-sleep";
-          command = (display "off") + "; " + lock;
-        }
-        {
-          event = "after-resume";
-          command = display "on";
-        }
-        {
-          event = "lock";
-          command = (display "off") + "; " + lock;
+          command = lock;
         }
         {
           event = "unlock";

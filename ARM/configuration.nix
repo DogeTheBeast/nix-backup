@@ -136,6 +136,11 @@
     font-awesome
   ];
 
+  # logind
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+  };
+
   # hardware.graphics.enable = true;
 
   # Configure keymap in X11
