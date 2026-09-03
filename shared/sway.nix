@@ -188,10 +188,10 @@
           timeout = 345;
           command = lock;
         }
-        {
-          timeout = 400;
-          command = "${pkgs.systemd}/bin/systemctl suspend";
-        }
+        # {
+        #   timeout = 400;
+        #   command = "${pkgs.systemd}/bin/systemctl suspend";
+        # }
       ];
       events = [
         {
