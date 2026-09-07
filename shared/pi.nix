@@ -36,6 +36,7 @@
       "npm:@gotgenes/pi-permission-system"
       "npm:pi-subagents"
       "npm:@demigodmode/pi-web-agent"
+      "npm:pi-compass"
     ];
 
     defaultProvider = "opencode-go";
