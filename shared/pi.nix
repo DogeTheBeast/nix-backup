@@ -37,6 +37,7 @@
       "npm:pi-subagents"
       "npm:@demigodmode/pi-web-agent"
       "npm:pi-compass"
+      "https://github.com/ayghri/i-have-adhd"
     ];
 
     defaultProvider = "opencode-go";
