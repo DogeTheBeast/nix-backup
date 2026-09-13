@@ -98,6 +98,8 @@
         keybindings = {
           "Mod4+grave" =
             ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
+          "Mod4+bracketright" = "move workspace to output right";
+          "Mod4+bracketleft" = "move workspace to output left";
         };
 
         bars = [
