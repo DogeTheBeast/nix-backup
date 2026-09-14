@@ -70,6 +70,7 @@ in
     globals = {
       gutentags_ctags_extra_args = [
         "--exclude=target"
+        "--exclude=.direnv"
       ];
       mapleader = ",";
     };

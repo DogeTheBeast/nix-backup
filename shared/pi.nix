@@ -45,8 +45,16 @@
   };
 
   home.file.".pi/agent/AGENTS.md".text = ''
-    You are already in the working directory.
-    You don't need to CD to any other external directory.
+    	 # Working directory discipline                                                                                                                                                                                                       
+                                                                                                                                                                                                                                            
+       Every bash command already runs in the project root — the harness passes the                                                                                                                                                         
+       working directory itself. Never start a bash command with `cd`.                                                                                                                                                                      
+                                                                                                                                                                                                                                            
+       Wrong:  cd /home/doge/packages/phaze && ./gradlew assembleDebug                                                                                                                                                                      
+       Right:  ./gradlew assembleDebug                                                                                                                                                                                                      
+                                                                                                                                                                                                                                            
+       If you start writing `cd ... &&`, delete it before sending: the shell is                                                                                                                                                             
+       already in the correct directory, so the prefix is redundant noise.
   '';
 
   # Permissions
