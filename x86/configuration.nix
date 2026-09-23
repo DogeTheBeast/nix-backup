@@ -199,12 +199,18 @@
   services.searx = {
     enable = true;
     # redisCreateLocally = true;
-    settings.server = {
-      bind_address = "0.0.0.0";
-      port = "8081";
-      secret_key = "thisisasupersecretkey";
-      public_instance = false;
-      limiter = false;
+    settings = {
+      outgoing = {
+        enable_http2 = false;
+        useragent_suffix = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
+      };
+      server = {
+        bind_address = "0.0.0.0";
+        port = "8081";
+        secret_key = "thisisasupersecretkey";
+        public_instance = false;
+        limiter = false;
+      };
     };
     limiterSettings.botdetection = {
       ip_limit = {
