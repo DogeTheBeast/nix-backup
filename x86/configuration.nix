@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  pkgsUnstable,
   sops-nix,
   ...
 }:
@@ -198,6 +199,7 @@
   # Searxng
   services.searx = {
     enable = true;
+    package = pkgsUnstable.searxng;
     # redisCreateLocally = true;
     settings = {
       outgoing = {
@@ -225,6 +227,21 @@
       "html"
       "json"
     ];
+  };
+
+  services.hister = {
+    enable = true;
+    settings = {
+      app = {
+        search_url = "http://100.96.166.98:8081/search?q={query}";
+      };
+      server = {
+        address = "[::]:4433";
+        base_url = "http://100.96.166.98:4433";
+      };
+      # hotkeys.web = {
+      # };
+    };
   };
 
   # Stylix

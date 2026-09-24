@@ -43,6 +43,9 @@
     in
     {
       nixosConfigurations.dogeOnNix = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit pkgsUnstable;
+        };
         inherit system;
         modules = [
           ./configuration.nix
