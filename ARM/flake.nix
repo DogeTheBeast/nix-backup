@@ -8,7 +8,7 @@
     };
     apple-silicon-support = {
       url = "github:nix-community/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     stylix = {
       url = "github:nix-community/stylix/release-26.05";
@@ -46,6 +46,13 @@
         inherit system;
         modules = [
           ./configuration.nix
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                avd-fw = pkgsUnstable.avd-fw;
+              })
+            ];
+          }
           apple-silicon-support.nixosModules.apple-silicon-support
           stylix.nixosModules.stylix
           nur.modules.nixos.default

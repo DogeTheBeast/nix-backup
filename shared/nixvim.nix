@@ -156,6 +156,19 @@ in
             javascriptreact = [ "prettierd" ];
             rust = [ "rustfmt" ];
             nix = [ "nixfmt" ];
+            tex = [ "latexindent" ];
+          };
+          formatters = {
+            latexindent = {
+              command = "latexindent";
+              args = [
+                "-l"
+                "latexindent.yaml"
+                "-w"
+                "$FILENAME"
+              ];
+              stdin = false;
+            };
           };
           log_level = "trace";
         };
@@ -191,17 +204,17 @@ in
           dartls = {
             enable = true;
           };
-          kotlin_lsp = {
-            enable = true;
-            package = kotlin-lsp;
-            cmd = [
-              "${kotlin-lsp}/bin/kotlin-lsp"
-              "--stdio"
-            ];
-            filetypes = [
-              "kotlin"
-            ];
-          };
+          # kotlin_lsp = {
+          #   enable = true;
+          #   package = kotlin-lsp;
+          #   cmd = [
+          #     "${kotlin-lsp}/bin/kotlin-lsp"
+          #     "--stdio"
+          #   ];
+          #   filetypes = [
+          #     "kotlin"
+          #   ];
+          # };
         };
       };
 

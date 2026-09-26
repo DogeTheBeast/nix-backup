@@ -9,7 +9,10 @@
   programs.librewolf = {
     enable = true;
     policies = {
-      HttpAllowlist = [ "http://100.96.166.98:8081" ];
+      HttpAllowlist = [
+        "http://100.96.166.98:8081"
+        "http://100.96.166.98:4433"
+      ];
     };
     profiles.dogeLibreWolf = {
       search = {
@@ -89,6 +92,7 @@
           darkreader
           block-website
           tridactyl
+          new-tab-override
         ];
       };
       userChrome = ./theme-files/librewolf/userChrome.css;

@@ -38,6 +38,8 @@
       "npm:@demigodmode/pi-web-agent"
       "npm:pi-compass"
       "https://github.com/ayghri/i-have-adhd"
+      "npm:@upstash/context7-pi"
+      "npm:pi-mcp-adapter"
     ];
 
     defaultProvider = "opencode-go";
@@ -78,4 +80,14 @@
       external_directory = "ask";
     };
   };
+
+  # MCP
+  # home.file.".pi/agent/mcp.json".text = builtins.toJSON {
+  # };
+
+  # home.file.".pi/agent/pi-jev-browser.config.json".text = builtins.toJSON {
+  #   typesafe = {
+  #     baseUrl = "https://openrouter.ai/api/alpha/decisions";
+  #   };
+  # };
 }
