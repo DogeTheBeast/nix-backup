@@ -51,6 +51,10 @@
     ];
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "immich-2.7.5"
+  ];
+
   # Greetd
   services.greetd = {
     enable = true;
@@ -95,8 +99,8 @@
   services.dbus.enable = true;
 
   # Use latest kernel.
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_1;
+  boot.kernelPackages = pkgs.linuxPackages;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_1;
 
   networking.hostName = "dogeOnNix"; # Define your hostname.
 
