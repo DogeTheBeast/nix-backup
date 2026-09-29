@@ -59,6 +59,7 @@ in
       smartcase = true;
       wrap = false;
       sidescrolloff = 36;
+      undofile = true;
     };
     diagnostic.settings = {
       virtual_text = false;

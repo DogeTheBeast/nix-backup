@@ -40,6 +40,7 @@
       "https://github.com/ayghri/i-have-adhd"
       "npm:@upstash/context7-pi"
       "npm:pi-mcp-adapter"
+      "https://github.com/DogeTheBeast/pi-Jev-browser.git"
     ];
 
     defaultProvider = "opencode-go";
