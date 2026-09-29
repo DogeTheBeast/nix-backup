@@ -247,9 +247,9 @@ in
     ];
 
     extraConfigLua = ''
-              vim.cmd.colorscheme("citruszest")
+      				vim.cmd.colorscheme("citruszest")
 
-              init = function()
+      				init = function()
 
       				vim.g.neominimap = {
       					auto_enable = true,
@@ -278,6 +278,11 @@ in
       				skills = true,
       				extensions = true,
       			})
+
+            vim.api.nvim_create_user_command("We", function()
+              vim.cmd("noautocmd write")
+            end, {})
+
     '';
   };
 }
