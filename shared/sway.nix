@@ -99,11 +99,11 @@ in
       (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
         output."*".scale = "0.8";
 
-        output.HDMI-A-1 = {
+        output.DP-2 = {
           transform = "270";
           position = "2400,0";
         };
-        output.DP-3 = {
+        output.DP-1 = {
           position = "0,0";
         };
 
