@@ -236,6 +236,7 @@ in
           view_method = "zathura";
         };
       };
+      web-devicons.enable = true;
 
     };
 

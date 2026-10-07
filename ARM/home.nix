@@ -58,9 +58,6 @@
     pkgs.opensrc
     pkgs.jq
     pkgs.hister
-
-    # Arm exclusive
-    pkgs.fooyin
   ];
 
   # Syncthing

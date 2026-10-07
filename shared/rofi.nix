@@ -28,10 +28,10 @@
       plugins = [ pkgs.rofi-calc ];
       theme = "glue_pro_blue.rasi";
     }
-    (lib.mkIf (pkgs.system == "x86_64-linux") {
+    (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
       font = "JetBrains Mono 8";
     })
-    (lib.mkIf (pkgs.system == "aarch64-linux") {
+    (lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-linux") {
       font = "JetBrains Mono 12";
     })
   ];

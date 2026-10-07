@@ -395,6 +395,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1789749394,
+        "narHash": "sha256-cFTsMQz8Hzn8MT49oaeLSHg62tE86NykugCWkeM2ypk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "cf9d2fb3e50fa1cd5114c47505ea9177f7ff5f49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1789286504,
         "narHash": "sha256-eiEK7cKZORNEvX0GeF3RtNEF/JXhgf2RqSp3230q13E=",
         "owner": "nixos",
@@ -412,9 +428,7 @@
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "systems": "systems"
       },
       "locked": {
@@ -484,7 +498,7 @@
         "bun2nix-x86_64-darwin": "bun2nix-x86_64-darwin",
         "flake-parts": "flake-parts_3",
         "jail-nix": "jail-nix",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-x86_64-darwin": "nixpkgs-x86_64-darwin"
       },
       "locked": {

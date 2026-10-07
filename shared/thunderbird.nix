@@ -22,10 +22,10 @@ in
           "mail.threadpane.listview" = 1;
           "mailnews.default_sort_order" = 1;
         }
-        (lib.mkIf (pkgs.system == "x86_64-linux") {
+        (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
           "layout.css.devPixelsPerPx" = "0.8";
         })
-        (lib.mkIf (pkgs.system == "aarch64-linux") {
+        (lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-linux") {
           "layout.css.devPixelsPerPx" = "1";
         })
       ];

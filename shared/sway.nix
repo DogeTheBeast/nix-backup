@@ -84,7 +84,7 @@
       })
 
       # X86
-      (lib.mkIf (pkgs.system == "x86_64-linux") {
+      (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
         output."*".scale = "0.8";
 
         output.HDMI-A-1 = {
@@ -111,13 +111,17 @@
       })
 
       # ARM
-      (lib.mkIf (pkgs.system == "aarch64-linux") {
+      (lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-linux") {
         output."*".scale = "1.3";
         keybindings = lib.mkAfter {
           "Mod4+less" =
             ''exec sh -c 'grim -g \"$(slurp)\" - | tee ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png | wl-copy' '';
           "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5% && pkill -RTMIN+10 i3blocks";
           "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%- && pkill -RTMIN+10 i3blocks";
+          "XF86LaunchA" =
+            "exec --no-startup-id brightnessctl --device=kbd_backlight set 5%- && pkill -RTMIN+12 i3blocks";
+          "XF86Search" =
+            "exec --no-startup-id brightnessctl --device=kbd_backlight set +5% && pkill -RTMIN+12 i3blocks";
         };
         bars = [
           {
@@ -195,15 +199,9 @@
         #   command = "${pkgs.systemd}/bin/systemctl suspend";
         # }
       ];
-      events = [
-        {
-          event = "before-sleep";
-          command = lock;
-        }
-        {
-          event = "unlock";
-          command = display "on";
-        }
-      ];
+      events = {
+        before-sleep = lock;
+        unlock = display "on";
+      };
     };
 }

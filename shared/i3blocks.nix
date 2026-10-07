@@ -8,7 +8,7 @@ let
     owner = "DogeTheBeast";
     repo = "i3blocks-contrib";
     rev = "master";
-    sha256 = "sha256-LyIko5bqCmhcHZQoF9KqJcJ13W9sMD0wDfRE4rZou4I=";
+    sha256 = "sha256-QVVC6Ze+yAGrukXgDRmeGJh9CFo2qYp2iBbXroknivU=";
   };
 in
 {
@@ -23,16 +23,23 @@ in
         volume = lib.hm.dag.entryAfter [ "mediaplayer" ] {
           command = "${i3blocks-contrib}/volume/volume";
           interval = "once";
-          label = "VOL: ";
+          label = "◖: ";
+          # label = "VOL: ";
           signal = 11;
         };
         backlight = lib.hm.dag.entryAfter [ "volume" ] {
           command = "brightnessctl i | sed -n 's/.*(\\([0-9]\\+%\\)).*/\\1/p'";
-          label = "Brightness: ";
+          label = "☀: ";
+          # label = "Brightness: ";
           interval = 60;
           signal = 10;
         };
-        iface = lib.hm.dag.entryAfter [ "backlight" ] {
+        keyboard_brightness = lib.hm.dag.entryAfter [ "backlight" ] {
+          command = "${i3blocks-contrib}/keyboard_brightness/keyboard_brightness";
+          interval = 30;
+          signal = 12;
+        };
+        iface = lib.hm.dag.entryAfter [ "keyboard_brightness" ] {
           command = "${i3blocks-contrib}/iface/iface";
           ADDRESS_FAMILY = "inet";
           color = "#00FF00";
