@@ -310,7 +310,7 @@
 
   # NFS
   fileSystems."/mnt/WD" = {
-    device = "192.168.100.100:/mnt/WD";
+    device = "192.168.1.210:/mnt/WD";
     fsType = "nfs";
   };
 
