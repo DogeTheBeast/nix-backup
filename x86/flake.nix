@@ -23,6 +23,10 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # omni-search = {
+    #   url = "path:/home/doge/packages/omnisearch";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -35,6 +39,7 @@
       sops-nix,
       nixvim,
       nur,
+      # omni-search,
     }:
     let
       system = "x86_64-linux";
@@ -52,6 +57,7 @@
           stylix.nixosModules.stylix
           nur.modules.nixos.default
           sops-nix.nixosModules.sops
+          # omni-search.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.users.doge.imports = [

@@ -8,6 +8,7 @@
   pkgs,
   pkgsUnstable,
   sops-nix,
+  # omni-search,
   ...
 }:
 {
@@ -50,6 +51,9 @@
       xdg-desktop-portal-gtk
     ];
   };
+
+  # # Omni Search
+  # services.omnisearch.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "immich-2.7.5"
