@@ -221,7 +221,7 @@ in
         }
         # {
         #   timeout = 400;
-        #   command = "${pkgs.systemd}/bin/systemctl suspend";
+        #   command = "${pkgs.systemd}/bin/systemctl sleep";
         # }
       ];
       events = {
