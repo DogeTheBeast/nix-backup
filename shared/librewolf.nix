@@ -95,9 +95,12 @@
           block-website
           tridactyl
           new-tab-override
+          sidebery
+          stylus
         ];
       };
-      userChrome = ./theme-files/librewolf/userChrome.css;
+      userChrome = ./theme-files/librewolf/caelus/userChrome.css;
+      userContent = ./theme-files/librewolf/caelus/userContent.css;
     };
   };
 }

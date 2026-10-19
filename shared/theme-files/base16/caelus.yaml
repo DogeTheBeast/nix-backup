@@ -1,0 +1,18 @@
+scheme: "base16"
+author: "You"
+base00: "141514" # Main background
+base01: "1e1f1e" # Focused background
+base02: "3b403c" # Inactive workspace
+base03: "656a60" # Muted text
+base04: "a39d8c" # Secondary text
+base05: "f4decd" # Default foreground
+base06: "f4decd" # Bright foreground
+base07: "f4decd" # Lightest foreground
+base08: "f16e65" # Red / urgent
+base09: "ef934d" # Orange / focused
+base0A: "e8c56d" # Yellow / separator
+base0B: "7ec97e" # Green / active workspace
+base0C: "78b7a5" # Cyan
+base0D: "71b4d6" # Blue / binding mode
+base0E: "c49ad4" # Purple
+base0F: "bd8065" # Brown

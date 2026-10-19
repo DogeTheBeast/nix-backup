@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  colors = config.lib.stylix.colors;
+  c = name: "#${colors.${name}}";
+in
 {
   wayland.windowManager.sway = {
     enable = true;
@@ -15,6 +19,14 @@
         fonts = {
           names = [ "JetBrains Mono NL" ];
         };
+        colors.focused = lib.mkForce {
+          border = c "base09";
+          background = c "base01";
+          text = c "base05";
+          indicator = c "base09";
+          childBorder = c "base09";
+        };
+
         keybindings = {
           "${modifier}+Return" = "exec kitty";
           "${modifier}+q" = "kill";
@@ -106,6 +118,9 @@
           {
             statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/bottom";
             position = "bottom";
+            extraConfig = ''
+              workspace_min_width 36
+            '';
           }
         ];
       })
@@ -127,6 +142,16 @@
           {
             statusCommand = "i3blocks -c ${config.xdg.configHome}/i3blocks/top";
             position = "top";
+            extraConfig = ''
+              workspace_min_width 36
+            '';
+            colors = {
+              focusedWorkspace = {
+                border = c "base08";
+                background = c "base00";
+                text = c "base07";
+              };
+            };
           }
         ];
       })

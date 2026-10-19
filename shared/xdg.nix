@@ -9,6 +9,7 @@
   # XDG
   xdg = {
     mime.enable = true;
+    configFile."mimeapps.list".force = true;
 
     desktopEntries.zathura = {
       name = "Zathura";
@@ -21,6 +22,7 @@
         "application/pdf" = [ "zathura.desktop" ];
         "image/gif" = [ "feh.desktop" ];
         "image/jpeg" = [ "feh.desktop" ];
+        "image/jpg" = [ "feh.desktop" ];
         "image/png" = [ "feh.desktop" ];
         "image/tiff" = [ "feh.desktop" ];
         "image/webp" = [ "feh.desktop" ];

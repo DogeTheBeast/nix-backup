@@ -205,8 +205,8 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    image = ../shared/theme-files/wallpapers/snowflake.png;
-    base16Scheme = ../shared/theme-files/theme.yaml;
+    image = ../shared/theme-files/wallpapers/shpongle-multi.jpg;
+    base16Scheme = ../shared/theme-files/base16/caelus.yaml;
   };
 
   programs.zsh.enable = true;

@@ -41,6 +41,15 @@ let
       hash = "sha256-xtA3Ylu6kB5QF3KJ+4eDDO1PJhcTZVZyS3ei96Hs4bM=";
     };
   };
+  vim-be-better = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-be-better";
+    src = pkgs.fetchFromGitHub {
+      owner = "szymonwilczek";
+      repo = "vim-be-better";
+      rev = "60e0214598d9d0bac8253e8b53a72eace4af92d3";
+      hash = "sha256-bbIhh5A1135UVMdQxUVMEHlqf1tCSbDP8QYQGg/OMa0=";
+    };
+  };
   kotlin-lsp = pkgs.callPackage ../flakes/kotlin-lsp.nix { };
 in
 {
@@ -245,6 +254,7 @@ in
       neominimap
       gutentags
       pi
+      vim-be-better
     ];
 
     extraConfigLua = ''
@@ -283,7 +293,7 @@ in
             vim.api.nvim_create_user_command("We", function()
               vim.cmd("noautocmd write")
             end, {})
-
+      vim.g.vim_be_better_default_difficulty = "easy"
     '';
   };
 }
