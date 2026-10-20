@@ -257,7 +257,7 @@
     enable = true;
     polarity = "dark";
     image = ../shared/theme-files/wallpapers/snowflake.png;
-    base16Scheme = ../shared/theme-files/theme.yaml;
+    base16Scheme = ../shared/theme-files/base16/caelus.yaml;
   };
 
   # Direnv
