@@ -121,6 +121,13 @@ in
             extraConfig = ''
               workspace_min_width 36
             '';
+            colors = {
+              focusedWorkspace = {
+                border = c "base08";
+                background = c "base00";
+                text = c "base07";
+              };
+            };
           }
         ];
       })
