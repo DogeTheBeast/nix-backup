@@ -12,6 +12,7 @@
   home.homeDirectory = "/home/doge";
 
   imports = [
+    ../shared/anki.nix
     ../shared/dunst.nix
     ../shared/git.nix
     ../shared/i3blocks.nix

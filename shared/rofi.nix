@@ -15,7 +15,7 @@
         kb-element-next = "";
         kb-accept-entry = "Return,Tab";
         kb-remove-to-eol = "";
-        display-drun = "Applications";
+        display-drun = "";
         display-window = "Windows";
         display-filebrowser = "Browse";
         display-calc = "Calc";
@@ -26,7 +26,7 @@
       };
       terminal = "kitty";
       plugins = [ pkgs.rofi-calc ];
-      theme = "glue_pro_blue.rasi";
+      theme = ./theme-files/rofi/caelus/caelus.rasi;
     }
     (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
       font = "JetBrains Mono 8";

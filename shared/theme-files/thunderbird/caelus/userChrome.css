@@ -1,0 +1,104 @@
+/* Caelus — Thunderbird userChrome.css */
+
+:root {
+  /* Base16 palette */
+  --caelus-base00: #141514;
+  --caelus-base01: #1e1f1e;
+  --caelus-base02: #3b403c;
+  --caelus-base03: #656a60;
+  --caelus-base04: #a39d8c;
+  --caelus-base05: #f4decd;
+  --caelus-base08: #f16e65;
+  --caelus-base09: #ef944d;
+  --caelus-base0A: #e8c56d;
+  --caelus-base0B: #7ec97e;
+  --caelus-base0C: #78b7a5;
+  --caelus-base0D: #71b4d6;
+  --caelus-base0E: #c49ad4;
+  --caelus-base0F: #bd8065;
+
+  /* Thunderbird theme variables */
+  --toolbar-bgcolor: var(--caelus-base01) !important;
+  --toolbar-color: var(--caelus-base05) !important;
+  --lwt-accent-color: var(--caelus-base00) !important;
+  --lwt-text-color: var(--caelus-base05) !important;
+  --lwt-selected-tab-background-color: var(--caelus-base01) !important;
+  --toolbar-field-background-color: var(--caelus-base00) !important;
+  --toolbar-field-color: var(--caelus-base05) !important;
+  --toolbar-field-border-color: var(--caelus-base02) !important;
+  --focus-outline-color: var(--caelus-base09) !important;
+  --tab-loading-fill: var(--caelus-base05) !important;
+
+  /* Orange accent */
+  --color-accent-primary: var(--caelus-base09) !important;
+  --color-accent-primary-hover: var(--caelus-base08) !important;
+  --selected-item-color: var(--caelus-base09) !important;
+  --sidebar-highlight-background: var(--caelus-base09) !important;
+  --sidebar-highlight-text-color: var(--caelus-base00) !important;
+  --button-primary-background-color: var(--caelus-base09) !important;
+  --button-primary-background-hover: var(--caelus-base08) !important;
+  --button-primary-text-color: var(--caelus-base00) !important;
+}
+
+/* Main toolbar */
+#navigation-toolbox,
+#tabs-toolbar,
+#mail-toolbox,
+#toolbar-menubar {
+  background-color: var(--caelus-base01) !important;
+  color: var(--caelus-base05) !important;
+}
+
+/* Selected tab */
+.tabmail-tab[selected="true"] {
+  background-color: var(--caelus-base01) !important;
+  color: var(--caelus-base09) !important;
+}
+
+/* Toolbar button accents */
+toolbarbutton:hover,
+toolbarbutton[open="true"],
+toolbarbutton[checked="true"] {
+  color: var(--caelus-base09) !important;
+}
+
+/* Folder pane */
+#folderPane,
+#folderTree,
+#folderTree treechildren {
+  background-color: var(--caelus-base00) !important;
+  color: var(--caelus-base05) !important;
+}
+
+#folderTree treechildren::-moz-tree-row(selected) {
+  background-color: var(--caelus-base02) !important;
+}
+
+/* Message list */
+#threadTree,
+#threadTree treechildren {
+  background-color: var(--caelus-base00) !important;
+  color: var(--caelus-base05) !important;
+}
+
+#threadTree treechildren::-moz-tree-row(selected) {
+  background-color: var(--caelus-base02) !important;
+}
+
+#threadTree treechildren::-moz-tree-row(hover) {
+  background-color: var(--caelus-base01) !important;
+}
+
+/* Menus and popups */
+menupopup,
+panel {
+  --panel-background: var(--caelus-base01) !important;
+  --panel-color: var(--caelus-base05) !important;
+}
+
+/* New Message button */
+#folderPaneWriteMessage,
+#folderPaneWriteMessage:hover {
+  background-color: var(--caelus-base09) !important;
+  color: var(--caelus-base00) !important;
+}

@@ -6,10 +6,10 @@
 }:
 
 let
-  tanbanVersion = "1.7.0";
+  tanbanVersion = "1.8.0";
   tanban = pkgs.fetchurl {
     url = "https://github.com/DogeTheBeast/tanban/releases/download/v${tanbanVersion}/tanban.xpi";
-    hash = "sha256-Z/kaiIvg9XGLXborOJkckUG0GWXMcdLZJ06/KgVsbl0=";
+    hash = "sha256-UD5wQKlqZW2XrMo4ixkOOWvc1+OUjL5KEDGqWACWCkg=";
   };
 in
 {
@@ -21,6 +21,7 @@ in
         {
           "mail.threadpane.listview" = 1;
           "mailnews.default_sort_order" = 1;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         }
         (lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
           "layout.css.devPixelsPerPx" = "0.8";
@@ -29,6 +30,7 @@ in
           "layout.css.devPixelsPerPx" = "1";
         })
       ];
+      userChrome = builtins.readFile ./theme-files/thunderbird/caelus/userChrome.css;
     };
     policies.ExtensionSettings."DogeTheBeast.tanban@addons.thunderbird.net" = {
       installation_mode = "force_installed";

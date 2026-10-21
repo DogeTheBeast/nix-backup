@@ -1,0 +1,123 @@
+
+/* Caelus — Rofi theme */
+
+* {
+    base00: #141514;
+    base01: #1e1f1e;
+    base02: #3b403c;
+    base03: #656a60;
+    base04: #a39d8c;
+    base05: #f4decd;
+    base08: #f16e65;
+    base09: #ef944d;
+    base0A: #e8c56d;
+    base0B: #7ec97e;
+    base0C: #78b7a5;
+    base0D: #71b4d6;
+    base0E: #c49ad4;
+    base0F: #bd8065;
+
+    background: @base00;
+    background-alt: @base01;
+    foreground: @base05;
+    selected: @base09;
+    active: @base0B;
+    urgent: @base08;
+
+    font: "Iosevka 12";
+}
+
+window {
+    width: 40%;
+    border: 2px;
+    border-color: @base09;
+    border-radius: 0px;
+    background-color: @background;
+}
+
+mainbox {
+    padding: 12px;
+    background-color: @background;
+    children: [ inputbar, listview ];
+    spacing: 12px;
+}
+
+inputbar {
+    padding: 10px;
+    spacing: 8px;
+    background-color: @base01;
+    text-color: @foreground;
+    border: 0px 0px 2px 0px;
+    border-color: @base09;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @base05;
+    background-color: transparent;
+}
+
+entry {
+    text-color: @foreground;
+    background-color: transparent;
+    placeholder-color: @base03;
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    spacing: 2px;
+    fixed-height: true;
+    background-color: transparent;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px;
+    spacing: 8px;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element normal.active {
+    background-color: @base01;
+    text-color: @base0B;
+}
+
+element normal.urgent {
+    background-color: @base01;
+    text-color: @base08;
+}
+
+element selected.normal {
+    background-color: @base02;
+    text-color: @base09;
+    border: 0px 0px 0px 2px;
+    border-color: @base09;
+}
+
+element selected.active {
+    background-color: @base02;
+    text-color: @base0B;
+}
+
+element selected.urgent {
+    background-color: @base02;
+    text-color: @base08;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 1.2em;
+}
+
