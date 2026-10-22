@@ -8,7 +8,6 @@
   pkgs,
   pkgsUnstable,
   sops-nix,
-  # omni-search,
   ...
 }:
 {
@@ -41,19 +40,6 @@
   nixpkgs.config.allowUnfree = true;
   services.pcscd.enable = true;
   security.polkit.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    config.common.default = "*";
-
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
-  };
-
-  # # Omni Search
-  # services.omnisearch.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "immich-2.7.5"
@@ -97,6 +83,15 @@
 
   services.openssh = {
     enable = true;
+    extraConfig = ''
+      Match user git
+        AllowTcpForwarding no
+        AllowAgentForwarding no
+        PasswordAuthentication no
+        KbdInteractiveAuthentication no
+        PermitTTY no
+        X11Forwarding no
+    '';
   };
 
   # Experimental features
@@ -348,6 +343,21 @@
       OnCalendar = "weekly";
     };
   };
+
+  users.users.git = {
+    isSystemUser = true;
+    group = "git";
+    home = "/var/lib/git-server";
+    createHome = true;
+    shell = "${pkgs.git}/bin/git-shell";
+    openssh.authorizedKeys.keys = [
+      # Pubkeys of authorised users
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPpHvGUkbDfxUlW40kRQasUSTnRWp5r0/mPWYZJwz+i ratiqnarwal@gmail.com"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCKdRILIFelMxcOgCoOqcklAIXc2J0jLC0MBPELaBpdSQTqCfCWk10EOeHrWwSimBHWO2inzxGqFglMPj529hH7okuIPmh/GNe3wERqJSiWqJAdtMuRCBKF4oPHKlFcxNW3LpXmV2w9eTTTa7Z18hx7yY5tTvKZ+Br8jO6Gbqgff2r84iheOBXWtT0UYY6sGvJO049U3qE6MSVkpr7LIR+MVHQsHFIPyfiE34NHhWXbbnE3pn3g/lhmZXo/EGgGEsejr++8UiO6ISxMgk6akycscMHBkBaLl+VhZHQPAVg98uqAPcMYVnnLsz2WL6yycRGdSCMW/Dbg93VcQCyJJZ5o6W8q/Kf1Ik5iS+0jF0eoXra2KzV4qjaTOfxXaC+jNNx1xj6JPbN+WtYGT10GWMmuenPR0Acd4b3GEURGdYCQi080kOb63wUNbqGq1586T/8F+x5jb1IYkLb+UqMsh5W31uT8HRD4/3/Jfs+vN07Cw9VGwI6C0fbfiXA42aMQVW8= ratiqnarwal@gmail.com"
+    ];
+  };
+
+  users.groups.git = { };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
