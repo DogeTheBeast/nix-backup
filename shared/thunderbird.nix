@@ -6,10 +6,10 @@
 }:
 
 let
-  tanbanVersion = "1.8.0";
+  tanbanVersion = "1.9.0";
   tanban = pkgs.fetchurl {
     url = "https://github.com/DogeTheBeast/tanban/releases/download/v${tanbanVersion}/tanban.xpi";
-    hash = "sha256-UD5wQKlqZW2XrMo4ixkOOWvc1+OUjL5KEDGqWACWCkg=";
+    hash = "sha256-e/FIMbwBR6um9C4+CWf1ehKSvs9tBxzi+2/Wgat+73E=";
   };
 in
 {
