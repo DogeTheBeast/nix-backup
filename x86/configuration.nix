@@ -68,17 +68,6 @@
 
   services.tailscale = {
     enable = true;
-    serve = {
-      enable = true;
-      services = {
-        immich = {
-          endpoints = {
-            "tcp:443" = "http://localhost:2283";
-          };
-          advertised = true;
-        };
-      };
-    };
   };
 
   services.openssh = {
@@ -315,15 +304,21 @@
 
   # Sops
   sops = {
-    defaultSopsFile = /home/doge/secrets/restic-password.yaml;
+    defaultSopsFile = ../secrets/restic-password.yaml;
     age.keyFile = "/home/doge/age/secrets.txt";
     secrets = {
       restic-password = {
-        sopsFile = /home/doge/secrets/restic-password.yaml;
+        sopsFile = ../secrets/restic-password.yaml;
       };
 
       restic-aws = {
-        sopsFile = /home/doge/secrets/restic-aws.yaml;
+        sopsFile = ../secrets/restic-aws.yaml;
+      };
+
+      cloudflared = {
+        sopsFile = ../secrets/cloudflared.json;
+        format = "json";
+        key = "";
       };
     };
   };
@@ -358,6 +353,34 @@
   };
 
   users.groups.git = { };
+
+  services.nginx = {
+    enable = true;
+    virtualHosts.localhost = {
+      locations."/" = {
+        return = "200 '<html><body>It works</body></html>'";
+        extraConfig = ''
+          default_type text/html;
+        '';
+      };
+    };
+  };
+
+  # Cloudflared
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      "cbfd9bb9-b165-4e18-ab46-33f5b53f83b1" = {
+        ingress = {
+          "photos.dogethebeast.xyz" = "http://localhost:2283";
+          "music.dogethebeast.xyz" = "http://100.120.67.80:4533";
+        };
+        credentialsFile = "${config.sops.secrets.cloudflared.path}";
+
+        default = "http_status:404";
+      };
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
