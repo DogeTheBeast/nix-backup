@@ -357,11 +357,9 @@
   services.nginx = {
     enable = true;
     virtualHosts.localhost = {
+      root = "/var/www/webpage/";
       locations."/" = {
-        return = "200 '<html><body>It works</body></html>'";
-        extraConfig = ''
-          default_type text/html;
-        '';
+        tryFiles = "$uri $uri/ /index.html";
       };
     };
   };
@@ -372,6 +370,8 @@
     tunnels = {
       "cbfd9bb9-b165-4e18-ab46-33f5b53f83b1" = {
         ingress = {
+          "git.dogethebeast.xyz" = "http://localhost:80";
+          "dogethebeast.xyz" = "http://localhost:80";
           "photos.dogethebeast.xyz" = "http://localhost:2283";
           "music.dogethebeast.xyz" = "http://100.120.67.80:4533";
         };
@@ -379,6 +379,24 @@
 
         default = "http_status:404";
       };
+    };
+  };
+
+  # CGit
+  services.cgit."git.dogethebeast.xyz" = {
+    enable = true;
+
+    # Directory containing your Git repositories
+    scanPath = "/var/lib/git-server";
+
+    # Nginx virtual host
+    nginx.virtualHost = "git.dogethebeast.xyz";
+    gitHttpBackend.checkExportOkFiles = false;
+
+    # Optional cgit settings
+    settings = {
+      root-title = "My Git Repositories";
+      root-desc = "Browse my projects";
     };
   };
 
