@@ -324,42 +324,48 @@
   };
 
   # Restic
-  services.restic.backups.photos = {
-    paths = [ "/mnt/WD/collection/Photos/" ];
-    repository = "s3:https://s3.amazonaws.com/photos-restic-s3";
-    initialize = true;
-    passwordFile = config.sops.secrets.restic-password.path;
-    environmentFile = config.sops.secrets.restic-aws.path;
+  services.restic.backups = {
+    photos = {
+      paths = [ "/mnt/WD/collection/Photos/" ];
+      repository = "s3:https://s3.amazonaws.com/photos-restic-s3";
+      initialize = true;
+      passwordFile = config.sops.secrets.restic-password.path;
+      environmentFile = config.sops.secrets.restic-aws.path;
 
-    pruneOpts = [
-      "--keep-last 3"
-    ];
-    timerConfig = {
-      OnCalendar = "weekly";
+      pruneOpts = [
+        "--keep-last 3"
+      ];
+      timerConfig = {
+        OnCalendar = "weekly";
+      };
+    };
+    git = {
+      paths = [ "/var/lib/forgejo/" ];
+      repository = "s3:https://s3.amazonaws.com/git-restic-s3";
+      initialize = true;
+      passwordFile = config.sops.secrets.restic-password.path;
+      environmentFile = config.sops.secrets.restic-aws.path;
+
+      pruneOpts = [
+        "--keep-last 1"
+      ];
+      timerConfig = {
+        OnCalendar = "daily";
+      };
     };
   };
 
-  users.users.git = {
-    isSystemUser = true;
-    group = "git";
-    home = "/var/lib/git-server";
-    createHome = true;
-    shell = "${pkgs.git}/bin/git-shell";
-    openssh.authorizedKeys.keys = [
-      # Pubkeys of authorised users
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPpHvGUkbDfxUlW40kRQasUSTnRWp5r0/mPWYZJwz+i ratiqnarwal@gmail.com"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCKdRILIFelMxcOgCoOqcklAIXc2J0jLC0MBPELaBpdSQTqCfCWk10EOeHrWwSimBHWO2inzxGqFglMPj529hH7okuIPmh/GNe3wERqJSiWqJAdtMuRCBKF4oPHKlFcxNW3LpXmV2w9eTTTa7Z18hx7yY5tTvKZ+Br8jO6Gbqgff2r84iheOBXWtT0UYY6sGvJO049U3qE6MSVkpr7LIR+MVHQsHFIPyfiE34NHhWXbbnE3pn3g/lhmZXo/EGgGEsejr++8UiO6ISxMgk6akycscMHBkBaLl+VhZHQPAVg98uqAPcMYVnnLsz2WL6yycRGdSCMW/Dbg93VcQCyJJZ5o6W8q/Kf1Ik5iS+0jF0eoXra2KzV4qjaTOfxXaC+jNNx1xj6JPbN+WtYGT10GWMmuenPR0Acd4b3GEURGdYCQi080kOb63wUNbqGq1586T/8F+x5jb1IYkLb+UqMsh5W31uT8HRD4/3/Jfs+vN07Cw9VGwI6C0fbfiXA42aMQVW8= ratiqnarwal@gmail.com"
-    ];
-  };
-
-  users.groups.git = { };
-
   services.nginx = {
     enable = true;
-    virtualHosts.localhost = {
+    virtualHosts."dogethebeast.xyz" = {
       root = "/var/www/webpage/";
       locations."/" = {
         tryFiles = "$uri $uri/ /index.html";
+      };
+    };
+    virtualHosts."git.dogethebeast.xyz" = {
+      locations."/" = {
+        proxyPass = "http://localhost:3000";
       };
     };
   };
@@ -382,21 +388,14 @@
     };
   };
 
-  # CGit
-  services.cgit."git.dogethebeast.xyz" = {
+  services.forgejo = {
     enable = true;
-
-    # Directory containing your Git repositories
-    scanPath = "/var/lib/git-server";
-
-    # Nginx virtual host
-    nginx.virtualHost = "git.dogethebeast.xyz";
-    gitHttpBackend.checkExportOkFiles = false;
-
-    # Optional cgit settings
     settings = {
-      root-title = "My Git Repositories";
-      root-desc = "Browse my projects";
+      service.DISABLE_REGISTRATION = true;
+      server = {
+        DOMAIN = "git.dogethebeast.xyz";
+        ROOT_URL = "https://git.dogethebeast.xyz/";
+      };
     };
   };
 
