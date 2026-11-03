@@ -1,0 +1,317 @@
+@import "./theme-forgejo-dark.css";
+/* =========================================
+   Caelus — Forgejo Theme
+   Based on the Caelus Rofi colour scheme
+   ========================================= */
+
+:root {
+  /* Base palette */
+  --caelus-base00: #141514;
+  --caelus-base01: #1e1f1e;
+  --caelus-base02: #3b403c;
+  --caelus-base03: #656a60;
+  --caelus-base04: #a39d8c;
+  --caelus-base05: #f4decd;
+
+  /* Accent palette */
+  --caelus-red: #f16e65;
+  --caelus-orange: #ef944d;
+  --caelus-yellow: #e8c56d;
+  --caelus-green: #7ec97e;
+  --caelus-cyan: #78b7a5;
+  --caelus-blue: #71b4d6;
+  --caelus-purple: #c49ad4;
+  --caelus-brown: #bd8065;
+
+  /* Forgejo theme variables */
+  --color-primary: var(--caelus-orange);
+  --color-hover: var(--caelus-base02);
+  --color-active: var(--caelus-base02);
+
+  --color-body: var(--caelus-base00);
+  --color-box-header: var(--caelus-base01);
+  --color-box-body: var(--caelus-base00);
+  --color-box-border: var(--caelus-base02);
+
+  --color-text: var(--caelus-base05);
+  --color-text-light: var(--caelus-base04);
+  --color-text-dark: var(--caelus-base05);
+
+  --color-border: var(--caelus-base02);
+  --color-secondary: var(--caelus-base01);
+  --color-secondary-hover: var(--caelus-base02);
+
+  --color-link: var(--caelus-blue);
+  --color-link-hover: var(--caelus-cyan);
+
+  --color-success: var(--caelus-green);
+  --color-warning: var(--caelus-yellow);
+  --color-danger: var(--caelus-red);
+
+  --color-input-background: var(--caelus-base01);
+  --color-input-border: var(--caelus-base02);
+  --color-input-text: var(--caelus-base05);
+
+  --color-menu: var(--caelus-base01);
+  --color-menu-hover: var(--caelus-base02);
+
+  --color-nav-bg: var(--caelus-base01);
+
+  --fonts-proportional: "Iosevka", sans-serif;
+  --fonts-monospace: "Iosevka", monospace;
+}
+
+/* =========================================
+   Global
+   ========================================= */
+
+html,
+body {
+  background: var(--caelus-base00) !important;
+  color: var(--caelus-base05);
+  font-family: "Iosevka", sans-serif;
+}
+
+a {
+  color: var(--caelus-orange);
+}
+
+a:hover {
+  color: var(--caelus-cyan);
+}
+
+/* =========================================
+   Navigation
+   ========================================= */
+
+.page-header,
+.header,
+.ui.menu,
+.navbar {
+  background: var(--caelus-base01) !important;
+  border-color: var(--caelus-orange) !important;
+}
+
+.ui.menu .item,
+.ui.menu .item > a {
+  color: var(--caelus-base05) !important;
+}
+
+.ui.menu .item:hover {
+  background: var(--caelus-base02) !important;
+}
+
+/* =========================================
+   Main content
+   ========================================= */
+
+.page-content,
+.repository,
+.dashboard {
+  background: var(--caelus-base00);
+  color: var(--caelus-base05);
+}
+
+.ui.segment,
+.ui.attached.segment,
+.ui.card {
+  background: var(--caelus-base01) !important;
+  border-color: var(--caelus-base02) !important;
+  color: var(--caelus-base05) !important;
+}
+
+.ui.divider {
+  border-color: var(--caelus-base02) !important;
+}
+
+/* =========================================
+   Homepage
+   ========================================= */
+
+.home {
+  background: var(--caelus-base00);
+}
+
+.home .hero {
+  background: var(--caelus-base01);
+  border-bottom: 2px solid var(--caelus-orange);
+}
+
+.home .hero h1,
+.home .hero h2 {
+  color: var(--caelus-base05);
+}
+
+.home .hero p {
+  color: var(--caelus-base04);
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+
+.ui.primary.button {
+  background: var(--caelus-orange) !important;
+  color: var(--caelus-base00) !important;
+  border-radius: 4px;
+}
+
+.ui.primary.button:hover {
+  background: #f3a96f !important;
+}
+
+.ui.button {
+  background: var(--caelus-base02) !important;
+  color: var(--caelus-base05) !important;
+  border-radius: 4px;
+}
+
+.ui.button:hover {
+  background: var(--caelus-base03) !important;
+}
+
+/* =========================================
+   Inputs
+   ========================================= */
+
+input,
+textarea,
+.ui.input input,
+.ui.form input,
+.ui.form textarea,
+.ui.form select {
+  background: var(--caelus-base01) !important;
+  color: var(--caelus-base05) !important;
+  border-color: var(--caelus-base02) !important;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--caelus-orange) !important;
+  outline: none;
+}
+
+/* =========================================
+   Repository lists
+   ========================================= */
+
+.repository .name,
+.repository .repo-name {
+  color: var(--caelus-base05);
+}
+
+.message {
+  color: var(--caelus-base03) !important;
+}
+
+.repository .description {
+  color: var(--caelus-base04);
+}
+
+.repository .list,
+.repository .item {
+  border-color: var(--caelus-base02);
+}
+
+/* =========================================
+   Labels and badges
+   ========================================= */
+
+.ui.label {
+  background: var(--caelus-base02) !important;
+  color: var(--caelus-base05) !important;
+  border-color: var(--caelus-base03) !important;
+}
+
+.ui.green.label {
+  background: #263b2a !important;
+  color: var(--caelus-green) !important;
+}
+
+.ui.red.label {
+  background: #422624 !important;
+  color: var(--caelus-red) !important;
+}
+
+.ui.orange.label {
+  background: #443021 !important;
+  color: var(--caelus-orange) !important;
+}
+
+.ui.blue.label {
+  background: #233641 !important;
+  color: var(--caelus-blue) !important;
+}
+
+/* =========================================
+   Code blocks
+   ========================================= */
+
+pre,
+code,
+.markdown-code-block {
+  background: var(--caelus-base01) !important;
+  color: var(--caelus-base05) !important;
+  border-color: var(--caelus-base02) !important;
+}
+
+.markdown {
+  color: var(--caelus-base05);
+}
+
+/* =========================================
+   Tables
+   ========================================= */
+
+table,
+.ui.table {
+  background: var(--caelus-base00) !important;
+  color: var(--caelus-base05) !important;
+  border-color: var(--caelus-base02) !important;
+}
+
+.ui.table thead th {
+  background: var(--caelus-base01) !important;
+  color: var(--caelus-base04) !important;
+}
+
+.ui.table td {
+  border-color: var(--caelus-base02) !important;
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+
+footer,
+.page-footer {
+  background: var(--caelus-base01) !important;
+  color: var(--caelus-base04) !important;
+  border-top: 1px solid var(--caelus-base02);
+}
+
+/* =========================================
+   Selection and scrollbar
+   ========================================= */
+
+::selection {
+  background: var(--caelus-orange);
+  color: var(--caelus-base00);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--caelus-base00);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--caelus-base02);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--caelus-base03);
+}

@@ -388,9 +388,14 @@
     };
   };
 
+  # Forgejo
   services.forgejo = {
     enable = true;
     settings = {
+      ui = {
+        DEFAULT_THEME = "custom";
+        THEMES = "forgejo-auto,forgejo-light,forgejo-dark,custom";
+      };
       service.DISABLE_REGISTRATION = true;
       server = {
         DOMAIN = "git.dogethebeast.xyz";
@@ -398,6 +403,15 @@
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d '${config.services.forgejo.customDir}/templates' - forgejo forgejo - -"
+    "d '${config.services.forgejo.customDir}/public' - forgejo forgejo - -"
+    "d '${config.services.forgejo.customDir}/public/assets' - forgejo forgejo - -"
+    "d '${config.services.forgejo.customDir}/public/assets/css' - forgejo forgejo - -"
+    "L+ '${config.services.forgejo.customDir}/public/assets/css/theme-custom.css' - forgejo forgejo - ${../shared/theme-files/forgejo/caelus.css}"
+    "L+ '${config.services.forgejo.customDir}/templates/home.tmpl' - forgejo forgejo - ${../shared/theme-files/forgejo/home.tmpl}"
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

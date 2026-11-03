@@ -1,0 +1,388 @@
+
+{{template "base/head" .}}
+
+<div role="main"
+     aria-label="{{if .IsSigned}}{{ctx.Locale.Tr "dashboard"}}{{else}}{{ctx.Locale.Tr "home"}}{{end}}"
+     class="page-content home caelus-home">
+
+    <style>
+        .caelus-home {
+            --c-bg: #141514;
+            --c-surface: #1e1f1e;
+            --c-border: #3b403c;
+            --c-muted: #a39d8c;
+            --c-text: #f4decd;
+            --c-orange: #ef944d;
+            --c-green: #7ec97e;
+            --c-blue: #71b4d6;
+
+            color: var(--c-text);
+            padding: 5rem 1.5rem 3rem;
+            overflow: hidden;
+        }
+
+        .caelus-container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+
+        .caelus-hero {
+            position: relative;
+            text-align: center;
+            padding: 4rem 1rem 5rem;
+            animation: caelus-enter 0.9s ease both;
+        }
+
+        .caelus-glow {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: var(--c-orange);
+            opacity: 0.08;
+            filter: blur(100px);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            animation: caelus-pulse 6s ease-in-out infinite alternate;
+        }
+
+        .caelus-eyebrow {
+            color: var(--c-orange);
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            margin-bottom: 1.5rem;
+        }
+
+        .caelus-title {
+            color: var(--c-text) !important;
+            font-size: clamp(2.8rem, 7vw, 5rem) !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.06em;
+            margin-bottom: 1rem !important;
+        }
+
+        .caelus-title span {
+            color: var(--c-orange);
+        }
+
+        .caelus-description {
+            max-width: 570px;
+            margin: 0 auto 2rem;
+            color: var(--c-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Buttons */
+
+        .caelus-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .caelus-button {
+            display: inline-block;
+            padding: 0.85rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: transform 0.2s ease,
+                        background 0.2s ease;
+        }
+
+        .caelus-button:hover {
+            transform: translateY(-3px);
+            text-decoration: none;
+        }
+
+        .caelus-primary {
+            background: var(--c-orange);
+            color: #141514 !important;
+        }
+
+        .caelus-primary:hover {
+            background: #f3a96f;
+        }
+
+        .caelus-secondary {
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            color: var(--c-text) !important;
+        }
+
+        .caelus-secondary:hover {
+            background: var(--c-border);
+        }
+
+        /* Section */
+
+        .caelus-section {
+            margin: 0 auto 3rem;
+            animation: caelus-enter 1s ease both;
+            animation-delay: 0.2s;
+        }
+
+        .caelus-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .caelus-heading h2 {
+            color: var(--c-text) !important;
+            font-size: 1.2rem !important;
+            margin: 0 !important;
+        }
+
+        .caelus-heading::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: var(--c-border);
+        }
+
+        /* Cards */
+
+        .caelus-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+            gap: 1rem;
+        }
+
+        .caelus-card {
+            display: block;
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            padding: 1.5rem;
+            border-radius: 5px;
+            color: var(--c-text) !important;
+            transition: border-color 0.25s ease,
+                        transform 0.25s ease;
+        }
+
+        .caelus-card:hover {
+            border-color: var(--c-orange);
+            transform: translateY(-4px);
+            text-decoration: none;
+        }
+
+        .caelus-card-number {
+            color: var(--c-orange);
+            font-family: monospace;
+            margin-bottom: 1rem;
+        }
+
+        .caelus-card h3 {
+            color: var(--c-text) !important;
+            font-size: 1.1rem !important;
+            margin: 0 0 0.5rem !important;
+        }
+
+        .caelus-card p {
+            color: var(--c-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Footer */
+
+        .caelus-status {
+            text-align: center;
+            color: var(--c-muted);
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 5rem;
+        }
+
+        .caelus-status span {
+            color: var(--c-green);
+        }
+
+        /* Animation */
+
+        @keyframes caelus-enter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes caelus-pulse {
+            from {
+                opacity: 0.04;
+                scale: 0.9;
+            }
+            to {
+                opacity: 0.12;
+                scale: 1.2;
+            }
+        }
+
+        /* Accessibility */
+
+        @media (prefers-reduced-motion: reduce) {
+            .caelus-home *,
+            .caelus-home *::before,
+            .caelus-home *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+            .caelus-home {
+                padding: 2rem 1rem;
+            }
+
+            .caelus-hero {
+                padding: 3rem 0;
+            }
+
+            .caelus-title {
+                font-size: 2.8rem !important;
+            }
+
+            .caelus-status {
+                margin-top: 3rem;
+            }
+        }
+    </style>
+
+    <div class="caelus-container">
+
+        <!-- Hero -->
+
+        <section class="caelus-hero">
+
+            <div class="caelus-glow"></div>
+
+            <div class="caelus-eyebrow">
+                // PERSONAL FORGEJO INSTANCE
+            </div>
+
+            <h1 class="caelus-title">
+                Welcome to <span>Monolith.</span>
+            </h1>
+
+            <p class="caelus-description">
+							My personal Git Server because
+							I hate AI companies stealing my code
+            </p>
+
+            <div class="caelus-actions">
+
+                <a href="{{AppSubUrl}}/explore/repos"
+                   class="caelus-button caelus-primary">
+                    Explore repositories →
+                </a>
+
+                {{if not .IsSigned}}
+                <a href="{{AppSubUrl}}/user/login"
+                   class="caelus-button caelus-secondary">
+                    Sign in
+                </a>
+                {{else}}
+                <a href="{{AppSubUrl}}/"
+                   class="caelus-button caelus-secondary">
+                    Go to dashboard
+                </a>
+                {{end}}
+
+            </div>
+
+        </section>
+
+        <!-- Explore -->
+
+        <section class="caelus-section">
+
+            <div class="caelus-heading">
+                <h2>Explore</h2>
+            </div>
+
+            <div class="caelus-grid">
+
+                <a href="{{AppSubUrl}}/explore/repos"
+                   class="caelus-card">
+
+                    <div class="caelus-card-number">
+                        01 /
+                    </div>
+
+                    <h3>Repositories</h3>
+
+                    <p>
+                        Browse projects, source code,
+                        experiments and development.
+                    </p>
+
+                </a>
+
+                <a href="{{AppSubUrl}}/explore/users"
+                   class="caelus-card">
+
+                    <div class="caelus-card-number">
+                        02 /
+                    </div>
+
+                    <h3>People</h3>
+
+                    <p>
+                        Discover users and contributors
+                        on this instance.
+                    </p>
+
+                </a>
+
+                <a href="{{AppSubUrl}}/explore/organizations"
+                   class="caelus-card">
+
+                    <div class="caelus-card-number">
+                        03 /
+                    </div>
+
+                    <h3>Organizations</h3>
+
+                    <p>
+                        Explore collaborative spaces
+                        and shared projects.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- Status -->
+
+        <div class="caelus-status">
+            <span>●</span>
+            All systems operational
+            &nbsp; / &nbsp;
+            Built with Forgejo
+        </div>
+
+    </div>
+
+</div>
+
+{{template "base/footer" .}}
+
