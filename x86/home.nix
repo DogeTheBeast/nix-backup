@@ -61,6 +61,7 @@
     # dogeOnNix specifics
     # pkgs.kdePackages.kdeconnect-kde
     pkgs.prismlauncher
+    pkgsUnstable.lightcraft
   ];
 
   services.kdeconnect.enable = true;
