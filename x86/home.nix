@@ -62,6 +62,7 @@
     # pkgs.kdePackages.kdeconnect-kde
     pkgs.prismlauncher
     pkgsUnstable.lightcraft
+    pkgs.proton-vpn-cli
   ];
 
   services.kdeconnect.enable = true;
