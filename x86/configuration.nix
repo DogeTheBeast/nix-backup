@@ -368,6 +368,11 @@
         proxyPass = "http://localhost:3000";
       };
     };
+    virtualHosts."matrix.dogethebeast.xyz" = {
+      locations."/" = {
+        proxyPass = "http://localhost:6167";
+      };
+    };
   };
 
   # Cloudflared
@@ -378,6 +383,7 @@
         ingress = {
           "git.dogethebeast.xyz" = "http://localhost:80";
           "dogethebeast.xyz" = "http://localhost:80";
+          "matrix.dogethebeast.xyz" = "http://localhost:80";
           "photos.dogethebeast.xyz" = "http://localhost:2283";
           "music.dogethebeast.xyz" = "http://100.120.67.80:4533";
         };
@@ -412,6 +418,29 @@
     "L+ '${config.services.forgejo.customDir}/public/assets/css/theme-custom.css' - forgejo forgejo - ${../shared/theme-files/forgejo/caelus.css}"
     "L+ '${config.services.forgejo.customDir}/templates/home.tmpl' - forgejo forgejo - ${../shared/theme-files/forgejo/home.tmpl}"
   ];
+
+  services.matrix-tuwunel = {
+    enable = true;
+
+    settings.global = {
+      server_name = "matrix.dogethebeast.xyz";
+
+      address = [
+        "0.0.0.0"
+        "::1"
+      ];
+      port = [ 6167 ];
+
+      allow_federation = true;
+      allow_encryption = true;
+
+      # Do not allow unrestricted public registration.
+      allow_registration = false;
+
+      # Directory containing bridge registration files.
+      appservice_dir = "/etc/tuwunel/appservices";
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
