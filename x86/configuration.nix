@@ -43,6 +43,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "immich-2.7.5"
+    "olm-3.2.16"
   ];
 
   # Greetd
@@ -435,10 +436,24 @@
       allow_encryption = true;
 
       # Do not allow unrestricted public registration.
-      allow_registration = false;
+      allow_registration = true;
+      registration_token = "helloawesomeworld";
 
       # Directory containing bridge registration files.
-      appservice_dir = "/etc/tuwunel/appservices";
+      # appservice_dir = "/etc/tuwunel/appservices";
+    };
+  };
+
+  services.mautrix-whatsapp = {
+    enable = true;
+    settings = {
+      homeserver = {
+        address = "http://localhost:6167";
+        domain = "matrix.dogethebeast.xyz";
+      };
+      bridge.permissions = {
+        "@dogethebeast:matrix.dogethebeast.xyz" = "admin";
+      };
     };
   };
 
