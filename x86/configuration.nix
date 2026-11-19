@@ -10,6 +10,9 @@
   sops-nix,
   ...
 }:
+let
+  inherit (lib.lists) head;
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -73,6 +76,7 @@
 
   services.openssh = {
     enable = true;
+    openFirewall = true;
     extraConfig = ''
       Match user git
         AllowTcpForwarding no
@@ -374,6 +378,11 @@
         proxyPass = "http://localhost:6167";
       };
     };
+    virtualHosts."ntfy.dogethebeast.xyz" = {
+      locations."/" = {
+        proxyPass = "http://localhost:2586";
+      };
+    };
   };
 
   # Cloudflared
@@ -384,6 +393,7 @@
         ingress = {
           "git.dogethebeast.xyz" = "http://localhost:80";
           "dogethebeast.xyz" = "http://localhost:80";
+          "ntfy.dogethebeast.xyz" = "http://localhost:80";
           "matrix.dogethebeast.xyz" = "http://localhost:80";
           "photos.dogethebeast.xyz" = "http://localhost:2283";
           "music.dogethebeast.xyz" = "http://100.120.67.80:4533";
@@ -407,6 +417,9 @@
       server = {
         DOMAIN = "git.dogethebeast.xyz";
         ROOT_URL = "https://git.dogethebeast.xyz/";
+        SSH_DOMAIN = "git.dogethebeast.xyz";
+        SSH_PORT = head config.services.openssh.ports;
+        START_SSH_SERVER = false;
       };
     };
   };
@@ -457,6 +470,40 @@
     };
   };
 
+  services.mautrix-discord = {
+    enable = true;
+    settings = {
+      homeserver = {
+        address = "http://localhost:6167";
+        domain = "matrix.dogethebeast.xyz";
+      };
+      bridge.permissions = {
+        "@dogethebeast:matrix.dogethebeast.xyz" = "admin";
+      };
+    };
+  };
+  services.mautrix-meta.instances.instagram = {
+    enable = true;
+    settings = {
+      homeserver = {
+        address = "http://localhost:6167";
+        domain = "matrix.dogethebeast.xyz";
+      };
+      bridge.permissions = {
+        "@dogethebeast:matrix.dogethebeast.xyz" = "admin";
+      };
+    };
+  };
+
+  services.ntfy-sh = {
+    enable = true;
+    settings = {
+      behind-proxy = true;
+      auth-default-access = "read-write";
+      enable-signup = false;
+      base-url = "https://ntfy.dogethebeast.xyz";
+    };
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -472,6 +519,7 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+    22
     8080
     11434
     49154
